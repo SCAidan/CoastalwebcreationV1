@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict');const {parse,dateFrom}=require('../dashboard/actions.js');
+const now=new Date(2026,9,21,12),state={leads:[],tasks:[],calls:[]};
+let d=parse('Add Stephen G. Ford Painting as a lead and remind me to call Friday',state,now);
+assert.equal(d.kind,'leads');assert.equal(d.values.business,'Stephen G. Ford Painting');assert.equal(d.values.followup,'2026-10-23');assert.equal(state.leads.length,0);
+d=parse('Add lead for Coastal Painting, email: paint@example.test, phone: 831-555-0100 notes: Asked for a quote',state,now);assert.equal(d.values.email,'paint@example.test');assert.equal(d.values.phone,'831-555-0100');assert.equal(d.values.notes,'Asked for a quote');
+d=parse('Add task Review homepage by Friday',state,now);assert.equal(d.values.name,'Review homepage');assert.equal(d.values.due,'2026-10-23');
+d=parse('Log a call with Coastal Painting notes: Left voicemail',state,now);assert.equal(d.kind,'calls');assert.equal(d.values.business,'Coastal Painting');assert.equal(d.values.outcome,'');
+state.leads.push({id:'a',business:'Coastal Painting',followup:'2026-10-20'});const before=JSON.stringify(state);d=parse('Set follow-up for Coastal Painting on Friday',state,now);assert.equal(d.id,'a');assert.equal(d.values.followup,'2026-10-23');assert.equal(JSON.stringify(state),before);
+assert(parse('Add Coastal Painting as a lead',state,now).error);assert(parse('Remind me to call Missing Business Friday',state,now).error);
+state.leads.push({id:'b',business:'Coastal Painting'});assert(parse('Set follow-up for Coastal Painting on Friday',state,now).error);
+assert(dateFrom('2026-02-30',now).error);assert.equal(dateFrom('tomorrow',now).value,'2026-10-22');assert.equal(dateFrom('next Wednesday',now).value,'2026-10-28');assert.equal(dateFrom('Wednesday',now).value,'2026-10-21');
+assert.equal(parse('What is my income?',state,now),null);assert(parse('Create an invoice for $500',state,now).error);
+console.log('PASS: action drafts, no-write parsing, field extraction, dates, duplicate/ambiguous names and unsupported actions.');
