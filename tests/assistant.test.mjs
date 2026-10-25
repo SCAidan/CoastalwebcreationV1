@@ -1,0 +1,40 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+const source = await readFile(new URL('../functions/api/assistant.js', import.meta.url), 'utf8');
+const {onRequestPost, onRequestGet} = await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+const owner='owner-test';
+const env={SUPABASE_URL:'https://db.test',SUPABASE_PUBLISHABLE_KEY:'public-test',OWNER_USER_ID:owner,OPENAI_API_KEY:'server-only-test',OPENAI_MODEL:'test-model'};
+const req=(options={})=>new Request('https://site.test/api/assistant',{method:'POST',headers:{Origin:'https://site.test',Authorization:'Bearer test-session','Content-Type':'application/json',...options.headers},body:options.body??JSON.stringify({question:'What should I focus on?',localDate:'2026-10-24'})});
+const json=(value,status=200)=>new Response(JSON.stringify(value),{status});
+test('assistant security, errors and payload filtering',async t=>{
+ const original=globalThis.fetch;
+ t.after(()=>{globalThis.fetch=original});
+ let calls=[];
+ const route=(options={})=>{calls=[];globalThis.fetch=async(url,init)=>{
+  calls.push({url,init});
+  if(url.endsWith('/auth/v1/user'))return json({id:options.other?'someone-else':owner},options.expired?401:200);
+  if(url.endsWith('/rpc/claim_ai_request'))return json(options.limited?false:true,options.noLimiter?503:200);
+  if(url.includes('/agency_workspaces'))return json([{data:{leads:[{business:'Example',stage:'New',value:'100',email:'private@example.test',phone:'123',website:'https://private.test',notes:'secret-note'}]}}]);
+  if(url==='https://api.openai.com/v1/responses')return options.providerFailure?json({error:'failure'},429):json({output:[{content:[{type:'output_text',text:'Focus on your lead.'}]}]});
+  throw Error('Unexpected request');
+ }};
+ await t.test('GET rejected',()=>assert.equal(onRequestGet().status,405));
+ await t.test('missing configuration fails before network',async()=>{route();assert.equal((await onRequestPost({request:req(),env:{}})).status,503);assert.equal(calls.length,0)});
+ await t.test('cross-origin denied before network',async()=>{route();assert.equal((await onRequestPost({request:req({headers:{Origin:'https://other.test'}}),env})).status,403);assert.equal(calls.length,0)});
+ await t.test('missing authentication denied',async()=>{route();assert.equal((await onRequestPost({request:req({headers:{Authorization:''}}),env})).status,401);assert.equal(calls.length,0)});
+ await t.test('expired session denied',async()=>{route({expired:true});assert.equal((await onRequestPost({request:req(),env})).status,401);assert.equal(calls.length,1)});
+ await t.test('non-owner denied before workspace read',async()=>{route({other:true});assert.equal((await onRequestPost({request:req(),env})).status,403);assert.equal(calls.length,1)});
+ await t.test('limiter failure denies AI request',async()=>{route({noLimiter:true});assert.equal((await onRequestPost({request:req(),env})).status,503);assert.equal(calls.length,2)});
+ await t.test('quota denial avoids provider charge',async()=>{route({limited:true});assert.equal((await onRequestPost({request:req(),env})).status,429);assert.equal(calls.length,2)});
+ await t.test('malformed input rejected',async()=>{route();assert.equal((await onRequestPost({request:req({body:'invalid json'}),env})).status,400)});
+ await t.test('provider error becomes safe notice',async()=>{route({providerFailure:true});const r=await onRequestPost({request:req(),env});assert.equal(r.status,502);assert.ok(!(await r.text()).includes(env.OPENAI_API_KEY))});
+ await t.test('answer uses selected fields and never exposes keys',async()=>{
+  route();const r=await onRequestPost({request:req(),env});assert.equal(r.status,200);assert.equal((await r.json()).answer,'Focus on your lead.');
+  const payload=JSON.parse(calls.at(-1).init.body);assert.equal(payload.store,false);
+  const input=JSON.parse(payload.input);assert.equal(input.workspace.leads[0].business,'Example');
+  for(const key of ['email','phone','website','notes'])assert.ok(!(key in input.workspace.leads[0]));
+  assert.ok(!payload.input.includes(env.OPENAI_API_KEY));assert.equal(payload.tools,undefined);
+  assert.ok(calls.every(c=>c.init?.method===undefined||c.init.method==='POST'));
+ });
+});
