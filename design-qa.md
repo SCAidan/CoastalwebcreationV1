@@ -4,7 +4,7 @@ final result: passed
 
 ## Target and evidence
 - Selected source: `/workspace/scratch/6a59b22d40fe/generated_images/exec-c91fabdc-c645-4b51-8ee4-0fac2fe64103.png` (approved Web Works direction).
-- Source pixels: 1487 × 1058; normalized to 1348 px content width, proportional height, top 936 px compared.
+- Source pixels: 1487 × 1058; normalized to 1348 px content width, proportional height, top visible 926 px compared; comparison canvas has 10 px of unused bottom padding.
 - Browser implementation: `docs/qa/homepage-desktop.jpg`; screenshot 1363 × 936, CSS content viewport 1348 × 936 plus scrollbar, density 1.
 - Combined comparison: `docs/qa/design-comparison.jpg`; focused heading/navigation comparison: `docs/qa/hero-comparison.jpg`.
 - Mobile evidence: `docs/qa/homepage-mobile.jpg`, 390 × 844 iframe viewport (375 px content width plus scrollbar), same live page and CSS. No horizontal overflow: content and viewport both 375 px. This verifies narrow layout, not a physical-device performance test.
