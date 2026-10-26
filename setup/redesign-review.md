@@ -11,3 +11,9 @@ When a custom domain is connected, update the canonical URL, Open Graph URL, rob
 Motion uses native browser animations with a reduced-motion preference and an in-page pause control. Content remains visible without JavaScript. There are no added analytics, advertising cookies, libraries, or external fonts.
 
 Review screenshots and comparison evidence in `docs/qa/`, and the results in `design-qa.md`. Merge the pull request to ship via the existing Cloudflare Pages integration. Revert the commit to restore the prior homepage.
+
+## Customer design examples and direct contact
+
+The header’s Design examples link leads to two runnable demos in templates/. Both are explicitly fictional, use system fonts, and return their selected style to the real inquiry form. The restaurant menu tabs are illustrative; there is no ordering or reservation system. The professional demo is not a real client. Demo pages are noindex and are not in the sitemap.
+
+The owner’s phone number is visible in the hero, contact area and footer. Call/text links open the visitor’s device apps. The optional goal checklist appends a short brief to the email inquiry without overwriting notes or adding storage/tracking. Updated validation and screenshots are in docs/qa/customer-examples-review.md.

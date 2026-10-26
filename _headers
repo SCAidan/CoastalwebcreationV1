@@ -5,3 +5,6 @@
 /dashboard/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+
+/templates/*
+  X-Robots-Tag: noindex, follow
