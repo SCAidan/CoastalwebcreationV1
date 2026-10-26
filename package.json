@@ -1,1 +1,1 @@
-{"name":"coastal-web-works","private":true,"scripts":{"dev":"node scripts/dev.mjs","test":"node --test tests/*.test.cjs tests/*.test.mjs"}}
+{"name":"coastal-web-works","private":true,"engines":{"node":">=22.13"},"scripts":{"dev":"node scripts/dev.mjs","demo":"COASTAL_DEMO=1 node scripts/dev.mjs","test":"node --test tests/*.test.cjs tests/*.test.mjs"}}

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Your project | Coastal Web Works</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+    <script src="/portal/portal.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#workspace">Skip to workspace</a>
+    <div id="loading" class="loading" role="status">
+      Opening your workspace…
+    </div>
+    <div class="shell" id="app" hidden>
+      <aside class="sidebar">
+        <a class="brand" href="/"><span>≈</span> COASTAL / CLIENT</a>
+        <nav aria-label="Client navigation">
+          <a href="#workspace" class="active">Project overview</a
+          ><a href="#requests">Your requests</a><a href="/">View website ↗</a
+          ><button id="logout">Sign out</button>
+        </nav>
+        <div class="sidebar-foot">
+          A little clarity.<br />A website that works for you.
+          <p><a href="mailto:aidan1465@gmail.com">Contact Aidan</a></p>
+        </div>
+      </aside>
+      <main class="workspace" id="workspace">
+        <div class="topline">
+          <div>
+            <p class="eyebrow">Your client workspace</p>
+            <h1 id="welcome">Welcome back.</h1>
+            <p class="muted">Your website’s next chapter starts here.</p>
+          </div>
+          <span class="badge">Private workspace</span>
+        </div>
+        <p class="status" id="status" role="status"></p>
+        <div class="grid">
+          <div>
+            <section class="panel project-summary">
+              <label for="project"
+                >Your project<select id="project"></select
+              ></label>
+              <div id="project-details"></div>
+            </section>
+            <section class="panel" id="requests">
+              <div class="panel-heading">
+                <h2>Your requests</h2>
+                <span class="badge" id="request-count"></span>
+              </div>
+              <div id="request-list"></div>
+            </section>
+          </div>
+          <div>
+            <section class="panel">
+              <p class="eyebrow">Let’s make it better</p>
+              <h2>Request a change.</h2>
+              <p class="muted">
+                Tell me what you’d like to update. I’ll review it and reply here
+                with the next step.
+              </p>
+              <form id="request-form">
+                <label
+                  >Short title<input
+                    name="title"
+                    required
+                    maxlength="160"
+                    placeholder="e.g. Update our opening hours" /></label
+                ><label
+                  >What would you like changed?<textarea
+                    name="body"
+                    required
+                    maxlength="4000"
+                    rows="5"
+                    placeholder="Include the page and the details you’d like updated."
+                  ></textarea>
+                </label>
+                <p class="muted">
+                  <small
+                    >Please don’t include passwords, payment details, or other
+                    sensitive information.</small
+                  >
+                </p>
+                <button class="primary" type="submit">Send request →</button>
+              </form>
+            </section>
+            <section class="panel">
+              <h2>A real person, a message away.</h2>
+              <p class="muted">
+                Need to talk something through? Reach out to Aidan.
+              </p>
+              <a href="mailto:aidan1465@gmail.com">Email Aidan ↗</a>
+              <p><a href="tel:+18315219681">(831) 521-9681</a></p>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

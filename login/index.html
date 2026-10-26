@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Sign in | Coastal Web Works</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+    <script src="/login/login.js" defer></script>
+  </head>
+  <body class="auth">
+    <main class="auth-card">
+      <a class="brand" href="/"><span>≈</span> COASTAL WEB WORKS</a>
+      <p class="eyebrow">Your website, together</p>
+      <h1 id="heading">Welcome back.</h1>
+      <p class="muted" id="intro">
+        Sign in to see your project, request changes, and keep things moving.
+      </p>
+      <form id="login-form">
+        <label
+          >Email address<input
+            name="email"
+            type="email"
+            required
+            autocomplete="username"
+            maxlength="254" /></label
+        ><label
+          >Password<input
+            id="password"
+            name="password"
+            type="password"
+            required
+            autocomplete="current-password"
+            maxlength="128" /></label
+        ><button id="show" type="button" aria-pressed="false">
+          Show password</button
+        ><button type="submit" class="primary">Sign in →</button>
+      </form>
+      <form id="password-form" hidden>
+        <label
+          >New password<input
+            name="password"
+            type="password"
+            minlength="12"
+            maxlength="128"
+            required
+            autocomplete="new-password" /></label
+        ><label
+          >Confirm password<input
+            name="confirmation"
+            type="password"
+            minlength="12"
+            maxlength="128"
+            required
+            autocomplete="new-password"
+        /></label>
+        <p class="note muted">
+          Use at least 12 characters and a password you don’t use elsewhere.
+        </p>
+        <button class="primary" type="submit">Save password & continue</button>
+      </form>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+      <p class="note muted">
+        Access is set up by Aidan. Need an account or a password reset?
+        <a href="mailto:aidan1465@gmail.com">Get in touch</a>.
+      </p>
+      <div class="auth-footer">
+        <a href="/#contact">Back to the website</a> ·
+        <a href="?owner=1" id="owner-link">Owner sign in</a>
+      </div>
+    </main>
+  </body>
+</html>

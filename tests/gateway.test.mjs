@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {stripTypeScriptTypes} from 'node:module';
+const source=(await readFile(new URL('../setup/functions/agency-gateway/index.ts',import.meta.url),'utf8')).replace(/Deno\.serve\([\s\S]*$/,'');
+const {handle}=await import('data:text/javascript;base64,'+Buffer.from(stripTypeScriptTypes(source)).toString('base64'));
+const env={SUPABASE_URL:'https://db.test',SUPABASE_SERVICE_ROLE_KEY:'server-only-fixture'};
+const origin='https://coastalwebcreationv1.pages.dev';
+const req=(body,headers={})=>new Request(origin+'/functions/v1/agency-gateway',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json',...headers},body:JSON.stringify(body)});
+const response=(data,status=200)=>new Response(JSON.stringify(data),{status});
+const valid={action:'inquiry',name:'Demo',email:'demo@example.test',business:'Demo only',message:'Test message',service:'new',style:'unsure'};
+test('gateway boundaries',async t=>{const original=globalThis.fetch;t.after(()=>globalThis.fetch=original);let calls=[];function mock(options={}){calls=[];globalThis.fetch=async(url,init)=>{calls.push({url,init});if(url.endsWith('/auth/v1/user'))return response({id:options.owner?'bf6331f2-e5b7-4070-a301-443b0183c41b':'other'},options.expired?401:200);if(url.endsWith('/rpc/claim_inquiry_slot'))return response(!options.limited);if(url.includes('/website_inquiries'))return response([{id:'receipt-test'}],options.failed?500:201);if(url.includes('/client_accounts?'))return response([{id:'11111111-1111-4111-8111-111111111111',email:'demo@example.test'}]);if(url.endsWith('/auth/v1/admin/generate_link'))return response({id:'11111111-1111-4111-8111-111111111111',hashed_token:'fixture-hash'});return new Response(null,{status:201})}}
+await t.test('unexpected origin denied',async()=>{mock();assert.equal((await handle(req(valid,{Origin:'https://untrusted.test'}),env)).status,403);assert.equal(calls.length,0)});
+await t.test('invalid form and honeypot denied before database',async()=>{for(const body of [{...valid,email:'invalid'},{...valid,website:'spam'},{...valid,message:''},{...valid,style:'forged'}]){mock();assert.equal((await handle(req(body),env)).status,400);assert.equal(calls.length,0)}});
+await t.test('rate cap prevents write',async()=>{mock({limited:true});assert.equal((await handle(req(valid),env)).status,429);assert.equal(calls.length,1);const b=JSON.parse(calls[0].init.body);assert.equal(b.fingerprint.length,64);assert.ok(!b.fingerprint.includes('unknown'))});
+await t.test('receipt only after saved row',async()=>{mock();const r=await handle(req(valid),env);assert.equal(r.status,201);assert.deepEqual(await r.json(),{receipt:'receipt-test'});assert.equal(calls.length,2);assert.ok(!JSON.stringify(await handle(req({...valid,email:'bad'}),env)).includes(env.SUPABASE_SERVICE_ROLE_KEY))});
+await t.test('database failure is not a receipt',async()=>{mock({failed:true});const r=await handle(req(valid),env);assert.equal(r.status,502);assert.equal((await r.json()).receipt,undefined)});
+await t.test('anonymous and other users cannot provision client access',async()=>{mock();assert.equal((await handle(req({action:'provision'}),env)).status,401);assert.equal(calls.length,0);mock();assert.equal((await handle(req({action:'provision'},{Authorization:'Bearer client'}),env)).status,403);assert.equal(calls.length,1)});
+await t.test('reset link must match the stored client identity',async()=>{mock({owner:true});const r=await handle(req({action:'setup_link',client_id:'22222222-2222-4222-8222-222222222222'},{Authorization:'Bearer owner'}),env);assert.equal(r.status,400);assert.equal((await r.json()).setup_url,undefined)});
+await t.test('owner invite uses verified JWT, generates link without sending email',async()=>{mock({owner:true});const r=await handle(req({action:'provision',email:'demo@example.test',business_name:'Demo only'},{Authorization:'Bearer owner'}),env);assert.equal(r.status,200);assert.deepEqual(await r.json(),{setup_url:origin+'/login/#setup=invite&token_hash=fixture-hash'});assert.ok(!calls.some(c=>c.url.endsWith('/invite')));assert.equal(calls[0].init.headers.Authorization,'Bearer owner');assert.equal(JSON.parse(calls.at(-1).init.body).id,'11111111-1111-4111-8111-111111111111')});
+});
