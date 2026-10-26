@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://coastalwebcreationv1.pages.dev/sitemap.xml
