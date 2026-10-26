@@ -1,13 +1,102 @@
-(()=>{
-const cfg=window.COASTAL_CONFIG||{};let session=null,revision=null,chain=Promise.resolve(),blocked=false;const $=s=>document.querySelector(s);const configured=()=>/^https:\/\/[^/]+\.supabase\.co$/.test(cfg.supabaseUrl||'')&&!!cfg.supabasePublishableKey;
-const status=t=>{$('#sync-state').textContent=t};
-async function api(path,options={}){const token=await tokenNow();const res=await fetch(cfg.supabaseUrl+path,{...options,headers:{apikey:cfg.supabasePublishableKey,Authorization:'Bearer '+token,'Content-Type':'application/json',...(options.headers||{})}});if(!res.ok)throw Error(res.status===401?'Session expired. Sign in again.':'Cloud request failed ('+res.status+'). Export your records before reloading.');return res.status===204?null:res.json()}
-async function tokenNow(){if(!session)throw Error('Sign in first.');if(Date.now()>session.expiresAt-60000){const r=await fetch(cfg.supabaseUrl+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:cfg.supabasePublishableKey,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:session.refresh_token})});if(!r.ok)throw Error('Session expired. Sign in again.');const d=await r.json();session={...d,expiresAt:Date.now()+d.expires_in*1000}}return session.access_token}
-async function load(){const rows=await api('/rest/v1/agency_workspaces?select=data,revision&owner_id=eq.'+encodeURIComponent(session.user.id));if(rows.length){revision=rows[0].revision;window.coastalReplace(rows[0].data)}else{revision=null;const empty={leads:[],calls:[],clients:[],projects:[],tasks:[],transactions:[]};window.coastalReplace(empty)}blocked=false;status('Cloud connected · saved');$('#storage-notice').textContent='Cloud workspace connected. Changes save to your account. Export backups regularly. Local preview records are separate; import a backup to migrate them.'}
-window.CoastalCloud={connected:()=>!!session,token:tokenNow,queueSave(data){chain=chain.then(async()=>{if(blocked){status('Sync paused · export your changes');return false}status('Saving…');try{if(revision===null){const rows=await api('/rest/v1/agency_workspaces',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify({owner_id:session.user.id,data,revision:1})});if(!rows?.length)throw Error('Save rejected. Check owner access.');revision=rows[0].revision}else{const rows=await api('/rest/v1/agency_workspaces?owner_id=eq.'+encodeURIComponent(session.user.id)+'&revision=eq.'+revision,{method:'PATCH',headers:{Prefer:'return=representation'},body:JSON.stringify({data,revision:revision+1,updated_at:new Date().toISOString()})});if(!rows?.length)throw Error('Another device changed this workspace. Export your changes, then reload and sign in.');revision=rows[0].revision}status('Cloud connected · saved');return true}catch(e){blocked=true;status('Not saved · export backup');$('#storage-notice').textContent=e.message+' Further cloud writes are paused.';return false}});return chain}};
-$('#auth-open').onclick=()=>{$('#account').showModal();$('#account-info').textContent=configured()?'Sign in to load your cloud workspace. Export local records first; cloud records replace this view.':'Cloud connection is not configured yet. Follow SETUP.md, then enter the public Supabase URL and publishable key in dashboard/config.js. Never paste secret keys here.'};$('#account-close').onclick=()=>$('#account').close();
-if(new URLSearchParams(location.search).get('login')==='1'){$('#auth-open').click();history.replaceState(null,'',location.pathname);}
-
-$('#login-form').onsubmit=async e=>{e.preventDefault();if(!configured()){$('#auth-status').textContent='Configure Supabase first. Local preview remains available.';return}if(session){$('#auth-status').textContent='Already connected. Sign out before changing accounts.';return}$('#auth-status').textContent='Signing in…';try{const f=new FormData(e.target),r=await fetch(cfg.supabaseUrl+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:cfg.supabasePublishableKey,'Content-Type':'application/json'},body:JSON.stringify({email:f.get('email'),password:f.get('password')})});if(!r.ok)throw Error('Sign-in failed. Check your email and password.');const d=await r.json();session={...d,expiresAt:Date.now()+d.expires_in*1000};await load();e.target.reset();$('#account').close();$('#auth-open').textContent='Account';}catch(e){session=null;$('#auth-status').textContent=e.message}};
-$('#sign-out').onclick=async()=>{if(session){await chain;if(blocked&&!confirm('Some changes are not saved. Export a backup before signing out. Sign out anyway?'))return;try{await api('/auth/v1/logout',{method:'POST'})}catch{}session=null;revision=null;blocked=false;window.coastalReplace({leads:[],calls:[],clients:[],projects:[],tasks:[],transactions:[]});status('Signed out');$('#storage-notice').textContent='Signed out. Cloud records are cleared from this view. Reload to return to local preview.';$('#auth-open').textContent='Connect account'}$('#account').close()};
+(() => {
+  const $ = (s) => document.querySelector(s);
+  let connected = false,
+    revision = null,
+    chain = Promise.resolve(),
+    blocked = false;
+  const status = (t) => ($("#sync-state").textContent = t);
+  async function api(path, options = {}) {
+    const r = await fetch(path, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...(options.headers || {}),
+      },
+    });
+    const d = await r.json();
+    if (r.status === 401) {
+      connected = false;
+      location.replace("/login/?owner=1");
+    }
+    if (!r.ok) throw Error(d.error || "Cloud request failed.");
+    return d;
+  }
+  window.CoastalCloud = {
+    connected: () => connected,
+    queueSave(data) {
+      chain = chain.then(async () => {
+        if (blocked || !connected) return false;
+        status("Saving…");
+        try {
+          const d = await api("/api/workspace", {
+            method: "POST",
+            body: JSON.stringify({ data, revision }),
+          });
+          revision = d.revision;
+          status("Cloud connected · saved");
+          return true;
+        } catch (e) {
+          blocked = true;
+          status("Not saved · export backup");
+          $("#storage-notice").textContent =
+            e.message +
+            " Further writes are paused. Export a backup before reloading.";
+          return false;
+        }
+      });
+      return chain;
+    },
+  };
+  $("#auth-open").onclick = async () => {
+    await chain;
+    if (
+      blocked &&
+      !confirm(
+        "Some changes are not saved. Export a backup before signing out. Sign out anyway?",
+      )
+    )
+      return;
+    try {
+      await api("/api/session", { method: "DELETE" });
+      connected = false;
+      window.coastalReplace({
+        leads: [],
+        calls: [],
+        clients: [],
+        projects: [],
+        tasks: [],
+        transactions: [],
+      });
+      location.replace("/login/?owner=1");
+    } catch (e) {
+      $("#storage-notice").textContent = e.message;
+    }
+  };
+  async function start() {
+    try {
+      const s = await api("/api/session");
+      if (s.role !== "owner") {
+        location.replace("/portal/");
+        return;
+      }
+      const d = await api("/api/workspace");
+      revision = d.revision;
+      connected = true;
+      window.coastalReplace(d.data);
+      $("#auth-open").textContent = "Sign out";
+      status("Cloud connected · saved");
+      $("#storage-notice").textContent =
+        "Owner workspace · Changes save to your account. Customer accounts cannot access these records.";
+      document.body.classList.remove("private-hidden");
+    } catch (e) {
+      $("#storage-notice").textContent = e.message;
+      document.body.classList.remove("private-hidden");
+      $("#view").textContent =
+        "Unable to load your workspace. Reload to try again.";
+      $("#add").disabled = true;
+    }
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  else start();
 })();

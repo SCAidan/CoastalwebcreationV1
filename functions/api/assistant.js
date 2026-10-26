@@ -3,7 +3,7 @@ export async function onRequestPost({request,env}){
  const {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,OWNER_USER_ID,OPENAI_API_KEY,OPENAI_MODEL}=env;
  if(!SUPABASE_URL||!SUPABASE_PUBLISHABLE_KEY||!OWNER_USER_ID||!OPENAI_API_KEY||!OPENAI_MODEL)return reply({error:'AI is not configured. Built-in summaries remain available.'},503);
  if(request.headers.get('Origin')!==new URL(request.url).origin)return reply({error:'Origin not allowed.'},403);
- const auth=request.headers.get('Authorization')||'';if(!auth.startsWith('Bearer ')||auth.length>12000)return reply({error:'Sign in first.'},401);
+ const cookie=(request.headers.get('Cookie')||'').split(';').map(x=>x.trim()).find(x=>x.startsWith('__Host-coastal-access='));const auth=request.headers.get('Authorization')||(cookie?'Bearer '+cookie.slice('__Host-coastal-access='.length):'');if(!auth.startsWith('Bearer ')||auth.length>12000)return reply({error:'Sign in first.'},401);
  try{
  const headers={apikey:SUPABASE_PUBLISHABLE_KEY,Authorization:auth};
  const userRes=await fetch(SUPABASE_URL+'/auth/v1/user',{headers,signal:AbortSignal.timeout(10000)});if(!userRes.ok)return reply({error:'Sign-in expired.'},401);const user=await userRes.json();if(user.id!==OWNER_USER_ID)return reply({error:'Owner access required.'},403);

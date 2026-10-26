@@ -1,3 +1,5 @@
-# Coastal Web Work’s — V3
+# Coastal Web Works
 
-Start with SETUP.md. Includes the approved blue logo and reviewed assistant commands for leads, tasks, call logs and follow-up dates. No paid AI required for these commands. Existing local data key is preserved. Cloud login/storage and optional real AI still need account setup. Export a backup before updating. Your live site has not been changed by this package.
+Cloudflare Pages website, private owner workspace, and invite-only customer portal. Start with [SETUP.md](SETUP.md). Run `npm test` for backend and assistant checks, or `npm run dev` for a static preview. Production API routes run on Cloudflare Pages.
+
+See [setup/CLIENT_PORTAL.md](setup/CLIENT_PORTAL.md) for client onboarding, deployment, privacy boundaries, and verification.

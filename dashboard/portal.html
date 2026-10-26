@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Clients & inquiries | Coastal Web Works</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+    <script src="/dashboard/portal-admin.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#workspace">Skip to workspace</a>
+    <div id="loading" class="loading" role="status">Checking owner access…</div>
+    <div class="shell" id="app" hidden>
+      <aside class="sidebar">
+        <a class="brand" href="/dashboard/"><span>≈</span> COASTAL / DESK</a>
+        <nav aria-label="Owner navigation">
+          <a href="/dashboard/">Business dashboard</a
+          ><a class="active" href="/dashboard/portal.html"
+            >Clients & inquiries</a
+          ><a href="/">View website ↗</a><button id="logout">Sign out</button>
+        </nav>
+        <div class="sidebar-foot">
+          OWNER WORKSPACE<br />Only assigned projects and requests are visible
+          to customers.
+        </div>
+      </aside>
+      <main class="workspace" id="workspace">
+        <div class="topline">
+          <div>
+            <p class="eyebrow">A better client experience</p>
+            <h1>Keep things moving.</h1>
+            <p class="muted">
+              Manage website inquiries, client access, and the next step.
+            </p>
+          </div>
+          <span class="badge">Owner access</span>
+        </div>
+        <p class="status" id="status" role="status"></p>
+        <nav class="tabs" aria-label="Management sections">
+          <button data-tab="inquiries" aria-pressed="true">Inquiries</button
+          ><button data-tab="accounts" aria-pressed="false">Clients</button
+          ><button data-tab="projects" aria-pressed="false">Projects</button
+          ><button data-tab="requests" aria-pressed="false">Requests</button>
+        </nav>
+        <p class="muted">
+          <small
+            >Showing up to the 200 most recent records in each section.</small
+          >
+        </p>
+        <div id="content"></div>
+      </main>
+    </div>
+  </body>
+</html>
