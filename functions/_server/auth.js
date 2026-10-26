@@ -42,7 +42,10 @@ export async function bodyJSON(request, max = 12000) {
     offset += chunk.length;
   }
   try {
-    return JSON.parse(new TextDecoder().decode(bytes));
+    const value = JSON.parse(new TextDecoder().decode(bytes));
+    if (!value || typeof value !== "object" || Array.isArray(value))
+      throw new Error("object required");
+    return value;
   } catch {
     throw new HttpError(400, "Invalid request.");
   }

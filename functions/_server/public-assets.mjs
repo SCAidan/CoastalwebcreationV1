@@ -1,0 +1,60 @@
+// Explicit publication boundary. Backend files, tests, docs, env files and maps are never assets.
+export const PUBLIC_FILES = Object.freeze([
+  "index.html",
+  "404.html",
+  "privacy.html",
+  "robots.txt",
+  "sitemap.xml",
+  "assets/paypal-payment-qr.svg",
+  "assets/cleaning-machine.webp",
+  "assets/coastal-logo-blue.png",
+  "assets/coastal-logo-web.webp",
+  "assets/coastal-logo.png",
+  "assets/coastal-waves.webp",
+  "assets/portal.css",
+  "assets/site.css",
+  "assets/site.js",
+  "assets/template-professional-preview.webp",
+  "assets/template-restaurant-photo.webp",
+  "assets/template-restaurant-preview.webp",
+  "assets/williams-mobile-mechanic.webp",
+  "dashboard/config.js",
+  "dashboard/cloud.js",
+  "dashboard/index.html",
+  "dashboard/insights.js",
+  "dashboard/dashboard.css",
+  "dashboard/dashboard.js",
+  "dashboard/actions.js",
+  "dashboard/portal.html",
+  "dashboard/portal-admin.js",
+  "login/index.html",
+  "login/login.js",
+  "portal/index.html",
+  "portal/portal.js",
+  "pay/index.html",
+  "thank-you/index.html",
+  "thank-you/thanks.js",
+  "templates/restaurant.html",
+  "templates/professional.html",
+  "templates/demos.css",
+  "templates/demos.js",
+]);
+const paths = new Set(PUBLIC_FILES.map((p) => "/" + p));
+for (const file of PUBLIC_FILES) {
+  if (file.endsWith("/index.html")) {
+    paths.add("/" + file.slice(0, -10));
+    paths.add("/" + file.slice(0, -11));
+  } else if (file.endsWith(".html") && file !== "index.html")
+    paths.add("/" + file.slice(0, -5));
+}
+paths.add("/");
+export const API_METHODS = Object.freeze({
+  "/api/session": ["GET", "POST", "DELETE"],
+  "/api/workspace": ["GET", "POST"],
+  "/api/portal": ["GET", "POST"],
+  "/api/inquiries": ["POST"],
+  "/api/assistant": ["GET", "POST"],
+});
+export function publicPath(path) {
+  return paths.has(path);
+}

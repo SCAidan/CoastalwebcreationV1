@@ -4,7 +4,7 @@ The website runs on Cloudflare Pages with Functions for /api/*. The public site 
 
 ## Existing production configuration
 
-Cloudflare Pages: framework None, output directory `.`, no frontend build required. Ensure Pages Functions are deployed, not just static files. Environment variables: SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, OWNER_USER_ID. Optional owner AI also needs OPENAI_API_KEY and OPENAI_MODEL. Keep secrets in Cloudflare environment settings; never commit service-role or OpenAI keys.
+Cloudflare Pages: framework None, build command `npm run build`, output directory `dist`. Do not deploy the repository root. Ensure Pages Functions are deployed, not just static files. Environment variables: SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, OWNER_USER_ID. Optional owner AI also needs OPENAI_API_KEY and OPENAI_MODEL. Keep secrets in Cloudflare environment settings; never commit service-role or OpenAI keys.
 
 The existing owner tables, RLS policies and AI quota function are in `setup/schema.sql`. Do not rerun old setup scripts against an already configured project without reviewing them. The additive customer schema is `setup/client-portal.sql`; it has already been applied to the connected project. The runtime and customer onboarding instructions are in [setup/CLIENT_PORTAL.md](setup/CLIENT_PORTAL.md).
 
@@ -38,3 +38,13 @@ Money tracking is a simple cash ledger, not accounting or payment processing. Pr
 Use Node 22.13+ or 24. Run `npm test` for server/assistant checks. Run `npm run dev` for a static preview; authentication requires the Cloudflare runtime. `npm run demo` enables synthetic local fixtures only, with `/__demo/client` and `/__demo/owner` for layout checks. Never use this local demo server as a production server. Production Pages routing never loads this fixture module.
 
 Validate the Functions bundle with `npx wrangler pages functions build functions`. On the Cloudflare preview, test owner login/logout, customer setup and request/reply, and a contact form submission before onboarding real customers. RLS isolation was also checked in rollback-only transactions against the connected database.
+
+## Security verification
+
+Read [the security audit](audits/security-audit-2026-10-26.md). Run `npm ci --ignore-scripts`, `npm test`, `npm run check:secrets`, `npm run build`, `npm run check:release` and `npm run check:worker`. The same checks run in the repository security workflow. Require that check before merging. Only `dist` is the public release; `.artifacts` contains private build evidence and must never be deployed.
+
+After deployment, run `npm run check:deployment -- <verified HTTPS origin>` to inspect public payloads, forbidden paths, security headers and anonymous API responses. No login, payment or private-row fetch is performed by that script.
+
+## Interim PayPal payments
+
+The public footer and client portal link to `/pay/`. The link and QR match the code supplied by Aidan. It is an app-oriented QR URL, so desktop visitors can scan it with the PayPal app. Use Goods & Services for business payments. Receipt and ledger reconciliation are manual. Nothing in this integration saves cards, verifies a completed payment, or authorizes recurring billing. A PayPal.Me or seller checkout URL can replace the app link later.

@@ -6,7 +6,7 @@ import {
   config,
   supa,
   failure,
-} from "../../server/auth.js";
+} from "../_server/auth.js";
 export async function onRequestPost({ request, env }) {
   try {
     sameOrigin(request);

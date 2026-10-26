@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 const moduleURL=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
-const helper=moduleURL(await readFile(new URL('../server/auth.js',import.meta.url),'utf8'));
-async function load(path){return import(moduleURL((await readFile(new URL(path,import.meta.url),'utf8')).replace('../../server/auth.js',helper)))}
+const helper=moduleURL(await readFile(new URL('../functions/_server/auth.js',import.meta.url),'utf8'));
+async function load(path){return import(moduleURL((await readFile(new URL(path,import.meta.url),'utf8')).replace('../_server/auth.js',helper)))}
 const auth=await import(helper);
 const session=await load('../functions/api/session.js'),portal=await load('../functions/api/portal.js'),workspace=await load('../functions/api/workspace.js'),inquiries=await load('../functions/api/inquiries.js');
 const env={SUPABASE_URL:'https://db.test',SUPABASE_PUBLISHABLE_KEY:'publishable-test',OWNER_USER_ID:'owner'};
@@ -29,5 +29,6 @@ await t.test('activation only accepts invite or recovery',async()=>{mock();asser
 await t.test('refresh tokens stay in server cookies',async()=>{mock();const r=await session.onRequestGet({request:req('session',undefined,{Cookie:'__Host-coastal-refresh=private-refresh'}),env});assert.equal(r.status,200);assert.ok(r.headers.get('Set-Cookie').includes('HttpOnly'));assert.ok(!(await r.text()).includes('private-refresh'))});
 await t.test('inquiry failure never becomes a successful receipt',async()=>{mock('owner',{gatewayFail:true});const r=await inquiries.onRequestPost({request:req('inquiries',{name:'Test',message:'Hello'}),env});assert.equal(r.status,429);assert.equal((await r.json()).receipt,undefined)});
 await t.test('paused clients can still sign out',async()=>{mock('client',{inactive:true});const r=await session.onRequestDelete({request:new Request('https://site.test/api/session',{method:'DELETE',headers:{Origin:'https://site.test',Cookie:'__Host-coastal-access=signed-test'}}),env});assert.equal(r.status,200);assert.ok(r.headers.get('Set-Cookie').includes('Max-Age=0'));assert.ok(!calls.some(c=>c.url.includes('client_accounts')))});
+await t.test('non-object JSON requests are rejected',async()=>{for(const body of [null,[],true,'text']){mock('owner');const r=await session.onRequestPost({request:req('session',body),env});assert.equal(r.status,400);assert.equal(calls.length,0)}});
 await t.test('bounded bodies reject oversize intake before gateway',async()=>{mock();assert.equal((await inquiries.onRequestPost({request:req('inquiries',{message:'a'.repeat(13000)}),env})).status,413);assert.equal(calls.length,0)});
 });

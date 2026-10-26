@@ -1,0 +1,208 @@
+{
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 13929,
+      "sha256": "93b2dc188aae3de31ff91142d524b225b63098198c6e8bc4db266946b0504e2a"
+    },
+    {
+      "path": "404.html",
+      "bytes": 494,
+      "sha256": "da3e92f362d55b4f7f5791fa75f24c9caf0b6f1799ed19c2e0b699483f75d9bf"
+    },
+    {
+      "path": "privacy.html",
+      "bytes": 5346,
+      "sha256": "0a35103cabf3a4f2fb0b8c5f7d9fe15b6190a73af8fc3128f774978f5d2e1f66"
+    },
+    {
+      "path": "robots.txt",
+      "bytes": 83,
+      "sha256": "1f64f4ae0e688b117a7090769df57caddd9be11c43b50f970d43c15407105a43"
+    },
+    {
+      "path": "sitemap.xml",
+      "bytes": 243,
+      "sha256": "a6ad506ab30af3dd66e9bd267c3ad113fc0d46c1ec3ced93efe19bdd0db09ca5"
+    },
+    {
+      "path": "assets/paypal-payment-qr.svg",
+      "bytes": 12523,
+      "sha256": "c94775ca3c5c979cde12f2fd83cd49bb59f24ea59034eb0e5b06b2ced8f98f2b"
+    },
+    {
+      "path": "assets/cleaning-machine.webp",
+      "bytes": 103120,
+      "sha256": "c310a2ed617ab67ff66f96ef291169970e852a5d4c158671609af02d80b36715"
+    },
+    {
+      "path": "assets/coastal-logo-blue.png",
+      "bytes": 468095,
+      "sha256": "722094befae0c87124ecc5e7471a2206d33efd0f06ec372cdee27dd2db2a798c"
+    },
+    {
+      "path": "assets/coastal-logo-web.webp",
+      "bytes": 12066,
+      "sha256": "9fc2dcd390b53f3d29402be33ad810c681949b86899d88c13e3c4c9817396476"
+    },
+    {
+      "path": "assets/coastal-logo.png",
+      "bytes": 444151,
+      "sha256": "5c31e6f0ba7d056c9bd06c96b29a0b097877558dbc3cd51588b16af525d647e0"
+    },
+    {
+      "path": "assets/coastal-waves.webp",
+      "bytes": 55244,
+      "sha256": "ed5b8b3a639de115dd863497809cc2a9672146f1efe9c7f06d6548b750d6df79"
+    },
+    {
+      "path": "assets/portal.css",
+      "bytes": 8151,
+      "sha256": "785a13cbb125acd11056ef276c639ff0593d95d77e3f98ac24a63b32de9e3ff7"
+    },
+    {
+      "path": "assets/site.css",
+      "bytes": 14571,
+      "sha256": "39d43f3f3b0d264474060f053a0fc88702d8a39257e499b478859ade767cae63"
+    },
+    {
+      "path": "assets/site.js",
+      "bytes": 6211,
+      "sha256": "5fc5208c1decc52c7055d50508ca5f738d1f297d4200f3d2be798d4e63105d53"
+    },
+    {
+      "path": "assets/template-professional-preview.webp",
+      "bytes": 35694,
+      "sha256": "0f832c211f2bed447cf7ea9773b02d7a5c9569c22db33c00a4aeeb6883e20940"
+    },
+    {
+      "path": "assets/template-restaurant-photo.webp",
+      "bytes": 195708,
+      "sha256": "cd7488656b21a8595e2163b700af79144306d886124decb25ff9e77f2eb4a7ac"
+    },
+    {
+      "path": "assets/template-restaurant-preview.webp",
+      "bytes": 123424,
+      "sha256": "41bc2e5e986b8224ff21cbe2f7d4f7f49d6dcd4af0eea8646814b03f477c6b59"
+    },
+    {
+      "path": "assets/williams-mobile-mechanic.webp",
+      "bytes": 63842,
+      "sha256": "4db35b9d90d52783583064e532a0cba3d2dfe26a66ebe9e6297de670118be8b7"
+    },
+    {
+      "path": "dashboard/config.js",
+      "bytes": 138,
+      "sha256": "7df7ce4ca18d054caf01536e632b38aaef04cb9d3b5a77d4378f899a40b82c5d"
+    },
+    {
+      "path": "dashboard/cloud.js",
+      "bytes": 3017,
+      "sha256": "c72fce4dfab65c9d858013ba5b575618438a2632ad812ce8141379573a435f7e"
+    },
+    {
+      "path": "dashboard/index.html",
+      "bytes": 1818,
+      "sha256": "e62e2ad948e1cbcaab1c366e773417cf9f50cbf8e2a26592655bc4846ccbae39"
+    },
+    {
+      "path": "dashboard/insights.js",
+      "bytes": 7197,
+      "sha256": "fa044f0a82057ae22393d5d4e178091d21e64df00399acac0bd6d6ae891f7770"
+    },
+    {
+      "path": "dashboard/dashboard.css",
+      "bytes": 7915,
+      "sha256": "bc626616f4ec6a689d93be1b96ec6f4d699ca81cc66b8881f7f7682d6bc15c3b"
+    },
+    {
+      "path": "dashboard/dashboard.js",
+      "bytes": 16427,
+      "sha256": "23f4175e16db1f28aeb6455f511f72b1fa3927904c469202a16d1fcccc2c9b80"
+    },
+    {
+      "path": "dashboard/actions.js",
+      "bytes": 5206,
+      "sha256": "d7d5f45e2fad5135f04a800335a54e4518176a6e9257abbbf2ee9cbed6c9953c"
+    },
+    {
+      "path": "dashboard/portal.html",
+      "bytes": 2205,
+      "sha256": "71f9a4e2eeee19d77d2026ba8893073e595f458eb533b9d0e20e208b21deb02a"
+    },
+    {
+      "path": "dashboard/portal-admin.js",
+      "bytes": 10029,
+      "sha256": "9bed5abb68acb5085e90ef2b02adec49dcc525714c949051953607e305bd69a7"
+    },
+    {
+      "path": "login/index.html",
+      "bytes": 2545,
+      "sha256": "c8951f76eab1c93efc1bb47f4ecdad7d0d3e67e24e57725e5a43322d9a78eb4d"
+    },
+    {
+      "path": "login/login.js",
+      "bytes": 3167,
+      "sha256": "d309bdddbb415c29c6cff69e66e5f6fd91cca01ce54d2bc59f3364b3631236ca"
+    },
+    {
+      "path": "portal/index.html",
+      "bytes": 3949,
+      "sha256": "82b5c43ea85af7feaa5c3cababd664b13b6815ed42eae8267eb0dc46a70267da"
+    },
+    {
+      "path": "portal/portal.js",
+      "bytes": 5169,
+      "sha256": "5d7c34e3b8cf73b14b7d8d1a47980a3e2bfee7289bc17947dabf0ce477dbcb6a"
+    },
+    {
+      "path": "pay/index.html",
+      "bytes": 2307,
+      "sha256": "f5a381d1ef6cfb4f0a68de0ac84d485241bfbe30d6f60ae757d90e1c5b89767b"
+    },
+    {
+      "path": "thank-you/index.html",
+      "bytes": 1018,
+      "sha256": "b91a145aa76592f57230c4e5826fc0d2cd76f7ceee68b1663203e9892bc2b654"
+    },
+    {
+      "path": "thank-you/thanks.js",
+      "bytes": 682,
+      "sha256": "7b56e5061162d04abb78b266f4329c39f6328ef56f5d1b722e3d4189d3bc9e6c"
+    },
+    {
+      "path": "templates/restaurant.html",
+      "bytes": 3407,
+      "sha256": "56a076fbfbd59eb53a48b8fe1be4c2f0e3ac1d1d08f52b1a20c468c5580527f9"
+    },
+    {
+      "path": "templates/professional.html",
+      "bytes": 3499,
+      "sha256": "2a736550b03e22c3cbc1879f1a10fa65be3da6be553f5d2d41fbcd34df6e3147"
+    },
+    {
+      "path": "templates/demos.css",
+      "bytes": 9174,
+      "sha256": "582c81772c6fb550b1eacb16d1211e7ab57333e0067dc1b6c4d7adeff9238818"
+    },
+    {
+      "path": "templates/demos.js",
+      "bytes": 1332,
+      "sha256": "22a57fa6071f6c3483c3ab7aa3afa0f6f086fb9ea57c4837241fba11499df216"
+    },
+    {
+      "path": "_headers",
+      "bytes": 838,
+      "sha256": "d11ef4a1e6027efc7bc6d1f0789a2a3a1c2b86ba1c3324bb1e4d726e34cb4f7f"
+    },
+    {
+      "path": "_routes.json",
+      "bytes": 44,
+      "sha256": "6a5235a7db8c26c17606b7f16516509989e8b2c8307280cc53c30e03e63d4a6a"
+    }
+  ],
+  "scan": {
+    "files": 40,
+    "findings": []
+  }
+}
