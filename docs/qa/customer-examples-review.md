@@ -32,3 +32,5 @@ Existing approved Web Works design is the baseline. This update adds the owner-r
 
 ## Limits
 The inquiry still prepares an email draft. No live inquiry was sent. Client-specific dashboards and automatic inquiry/thank-you handling remain separate backend work. Demo pages are noindex and omitted from the sitemap; real business content stays on the main site. No Google ranking or field Core Web Vitals claims are made.
+
+Portfolio follow-up: opened the actual merged public mechanic homepage, captured it, and refreshed assets/williams-mobile-mechanic.webp with factual alt text. This distinguishes the two real project layouts and does not substitute an invented mockup for real work.
