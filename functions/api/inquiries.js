@@ -10,7 +10,7 @@ import {
 export async function onRequestPost({ request, env }) {
   try {
     sameOrigin(request);
-    config(env);
+    env = config(env);
     const input = await bodyJSON(request, 12000);
     const response = await supa(
       env,

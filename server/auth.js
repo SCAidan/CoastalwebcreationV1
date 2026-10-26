@@ -66,12 +66,22 @@ export const uuid = (value) => {
     throw new HttpError(400, "Invalid record ID.");
   return value;
 };
+// Existing project identifiers are public (also present in the site config and RLS policies).
+// This enables Cloudflare branch previews without copying private production secrets.
+const publicProject = {
+  SUPABASE_URL: "https://aoadwygtjzctjhdovbds.supabase.co",
+  SUPABASE_PUBLISHABLE_KEY: "sb_publishable_7H7a0-s2p9xhI0D0DT84Iw_PSXA0Ybp",
+  OWNER_USER_ID: "bf6331f2-e5b7-4070-a301-443b0183c41b",
+};
 export function config(env) {
+  if (!env.SUPABASE_URL && !env.SUPABASE_PUBLISHABLE_KEY && !env.OWNER_USER_ID)
+    return { ...env, ...publicProject };
   if (!env.SUPABASE_URL || !env.SUPABASE_PUBLISHABLE_KEY || !env.OWNER_USER_ID)
     throw new HttpError(503, "Account services are not configured.");
   return env;
 }
 export async function supa(env, path, token, options = {}) {
+  env = config(env);
   return fetch(env.SUPABASE_URL + path, {
     ...options,
     headers: {
@@ -107,6 +117,7 @@ export function sessionCookies(data) {
   ];
 }
 export async function roleFor(env, user, token) {
+  env = config(env);
   if (user.id === env.OWNER_USER_ID) return "owner";
   const response = await supa(
     env,
@@ -124,7 +135,7 @@ export async function roleFor(env, user, token) {
   return "client";
 }
 export async function authenticate(request, env, authorize = true) {
-  config(env);
+  env = config(env);
   let token = cookieValue(request, "__Host-coastal-access"),
     cookies = [];
   let response = token ? await supa(env, "/auth/v1/user", token) : null;

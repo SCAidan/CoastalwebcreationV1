@@ -1,6 +1,6 @@
 # Client portal verification
 
-- 40 automated tests pass: existing assistant/actions plus session cookies, verified roles, CSRF, expired/inactive access, forged request fields, optimistic concurrency and gateway validation.
+- 41 automated tests pass: existing assistant/actions plus session cookies, verified roles, CSRF, expired/inactive access, forged request fields, optimistic concurrency and gateway validation.
 - Cloudflare Pages Functions compiled using Wrangler 4.46.0.
 - Rollback-only database checks also verified idempotent inquiry imports, CRM revision increments, and the hourly inquiry cap.
 - Actual Supabase RLS tested with two synthetic client UUIDs in a rollback-only transaction: separate accounts/projects, cross-client insert denial, status/reply forgery denial, owner access, paused access, anonymous denial and no owner-workspace/inquiry visibility for clients. Fixtures were rolled back.

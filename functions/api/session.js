@@ -29,7 +29,7 @@ export async function onRequestGet({ request, env }) {
 export async function onRequestPost({ request, env }) {
   try {
     sameOrigin(request);
-    config(env);
+    env = config(env);
     const input = await bodyJSON(request, 4000);
     if (input.action === "password") {
       const session = await authenticate(request, env);

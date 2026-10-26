@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 const moduleURL=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
 const helper=moduleURL(await readFile(new URL('../server/auth.js',import.meta.url),'utf8'));
 async function load(path){return import(moduleURL((await readFile(new URL(path,import.meta.url),'utf8')).replace('../../server/auth.js',helper)))}
+const auth=await import(helper);
 const session=await load('../functions/api/session.js'),portal=await load('../functions/api/portal.js'),workspace=await load('../functions/api/workspace.js'),inquiries=await load('../functions/api/inquiries.js');
 const env={SUPABASE_URL:'https://db.test',SUPABASE_PUBLISHABLE_KEY:'publishable-test',OWNER_USER_ID:'owner'};
 const client='11111111-1111-4111-8111-111111111111',project='22222222-2222-4222-8222-222222222222';
@@ -11,6 +12,7 @@ const req=(path,body,headers={})=>new Request('https://site.test/api/'+path,{met
 const response=(d,status=200)=>new Response(JSON.stringify(d),{status});
 test('portal/session security and writes',async t=>{const original=globalThis.fetch;t.after(()=>globalThis.fetch=original);let calls=[];
 function mock(role='client',options={}){calls=[];globalThis.fetch=async(url,init={})=>{calls.push({url,init});if(url.endsWith('/auth/v1/user'))return response({id:role==='owner'?'owner':client},options.expired?401:200);if(url.includes('/auth/v1/token'))return response({access_token:'new-access',refresh_token:'private-refresh',expires_in:3600});if(url.includes('/client_accounts'))return response(options.inactive?[]:[{id:client}]);if(url.includes('/agency_workspaces'))return response(options.conflict?[]:[{revision:8}]);if(url.includes('/agency-gateway'))return response(options.gatewayFail?{error:'Please try later.'}:{receipt:project},options.gatewayFail?429:201);return response([])}}
+await t.test('public preview configuration contains no privileged keys',()=>{const c=auth.config({});assert.ok(c.SUPABASE_URL.endsWith('.supabase.co'));assert.ok(c.SUPABASE_PUBLISHABLE_KEY.startsWith('sb_publishable_'));assert.equal(c.SUPABASE_SERVICE_ROLE_KEY,undefined);assert.equal(c.OPENAI_API_KEY,undefined);assert.throws(()=>auth.config({SUPABASE_URL:'https://partial.test'}),/not configured/)});
 await t.test('no cookie means no private data fetch',async()=>{mock();const r=await portal.onRequestGet({request:req('portal',undefined,{Cookie:''}),env});assert.equal(r.status,401);assert.equal(calls.length,0)});
 await t.test('forged or expired token fails verification',async()=>{mock('client',{expired:true});assert.equal((await portal.onRequestGet({request:req('portal'),env})).status,401);assert.equal(calls.length,1)});
 await t.test('paused client is denied before projects are fetched',async()=>{mock('client',{inactive:true});assert.equal((await portal.onRequestGet({request:req('portal'),env})).status,403);assert.equal(calls.length,2)});
