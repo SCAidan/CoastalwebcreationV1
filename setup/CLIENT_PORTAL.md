@@ -17,10 +17,10 @@ Allowed origins: https://coastalwebcreationv1.pages.dev and its Cloudflare previ
 3. In Clients, enter a customer's business name and email. **Create account & setup link** creates invite-only access and displays a private one-use link. It does not send email. Copy and share it privately with the intended client. Never publish setup links or paste them into issues.
 4. Add their project under Projects. Set a status, next step, optional target date, and HTTPS website link. Only assigned projects are visible to that client.
 5. The client opens their link, chooses a password of at least 12 characters, and lands at /portal/. Later visits use /login/ with their email/password.
-6. Requests appear in the owner Requests tab. Set a status and a customer-visible reply. The client sees it on their next page load. No email notifications are sent in this release.
+6. Requests appear in the owner Requests tab. Set a status and a customer-visible reply. The client sees it on their next page load. When the email notification setup is enabled, new requests notify sales@coastalwebwork.com and changed statuses or owner replies notify the assigned active client. See EMAIL_NOTIFICATIONS.md.
 7. Use **New password setup link** for an existing active client who needs a password reset. **Pause access** revokes portal access immediately on subsequent API/database requests, including existing signed-in sessions. It does not delete records. Reactivation restores access.
 
-The owner sees all clients; a customer sees only their own data. Do not add internal-only notes to client-visible project next steps or replies. The owner CRM and financial records remain separate. There is no public signup, file upload, payment processing, or automatic email in this release.
+The owner sees all clients; a customer sees only their own data. Do not add internal-only notes to client-visible project next steps or replies. The owner CRM and financial records remain separate. There is no public signup, file upload, payment processing, or automatic invitation/reset email in this release.
 
 ## Security and operations
 
@@ -28,7 +28,7 @@ Server checks use Supabase's verified user endpoint, not user-editable role meta
 
 HttpOnly, Secure, SameSite=Lax cookies carry sessions. Mutations require the same Origin. APIs return no-store responses and no tokens to browser JavaScript. Client pages use same-origin CSP; private records are rendered with escaping. Sign-out clears cookies and the view. Public activation hashes are removed from the address bar before verification. Setup links are bearer credentials and expire per the project's Supabase email OTP settings; generate a fresh link if needed.
 
-Inquiries are limited to 5/hour per hashed IP, 20/minute globally, 100/day globally, plus validation and a honeypot. This is basic abuse protection, not a CAPTCHA or a guarantee against spam. Direct callers can spoof Origin/IP headers; global caps bound writes. Check inquiries regularly; no automatic deletion or outbound notification is implemented. Export owner backups and handle deletion requests deliberately.
+Inquiries are limited to 5/hour per hashed IP, 20/minute globally, 100/day globally, plus validation and a honeypot. This is basic abuse protection, not a CAPTCHA or a guarantee against spam. Direct callers can spoof Origin/IP headers; global caps bound writes. Check inquiries regularly; no automatic deletion is implemented. Email notifications are handled by the optional server-side queue described in EMAIL_NOTIFICATIONS.md; monitor saved records and failed jobs. Export owner backups and handle deletion requests deliberately.
 
 Enable Supabase's leaked-password protection in Auth settings if available on your plan. Review account/session settings and keep owner credentials private. There is no claim of a legal compliance certification; review the published privacy notice for your actual business practices.
 
