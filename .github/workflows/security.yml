@@ -1,0 +1,41 @@
+name: Security and release checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm audit --audit-level=high
+      - run: npm test
+      - run: npm run check:secrets
+      - run: npm run build
+      - run: npm run check:release
+      - run: npm run check:worker
+      - name: Scan reachable history and public artifacts with Gitleaks
+        shell: bash
+        run: |
+          set -euo pipefail
+          audit_tools="$RUNNER_TEMP/coastal-gitleaks"
+          mkdir -p "$audit_tools"
+          curl --fail --silent --show-error --location https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz --output "$audit_tools/gitleaks_8.30.1_linux_x64.tar.gz"
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  $audit_tools/gitleaks_8.30.1_linux_x64.tar.gz" | sha256sum --check --strict
+          tar --no-same-owner -xzf "$audit_tools/gitleaks_8.30.1_linux_x64.tar.gz" -C "$audit_tools" gitleaks
+          "$audit_tools/gitleaks" git . --log-opts=--all --redact=100 --no-banner
+          "$audit_tools/gitleaks" dir dist --redact=100 --no-banner --config .gitleaks.toml

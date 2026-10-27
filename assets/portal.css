@@ -495,3 +495,5 @@ small {
     order: 4;
   }
 }
+
+.payment-qr{text-align:center}.payment-qr img{max-width:100%;height:auto}

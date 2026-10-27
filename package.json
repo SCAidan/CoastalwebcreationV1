@@ -1,1 +1,20 @@
-{"name":"coastal-web-works","private":true,"engines":{"node":">=22.13"},"scripts":{"dev":"node scripts/dev.mjs","demo":"COASTAL_DEMO=1 node scripts/dev.mjs","test":"node --test tests/*.test.cjs tests/*.test.mjs"}}
+{
+  "name": "coastal-web-works",
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "demo": "COASTAL_DEMO=1 node scripts/dev.mjs",
+    "test": "node --test tests/*.test.cjs tests/*.test.mjs",
+    "build": "node scripts/build.mjs",
+    "check:secrets": "node scripts/secret-history.mjs",
+    "check:release": "node scripts/security-scan.mjs dist",
+    "check:worker": "wrangler pages functions build functions --outdir .artifacts/worker",
+    "check:deployment": "node scripts/verify-deployment.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.153.0"
+  }
+}

@@ -13,7 +13,7 @@ import {
   clearCookies,
   destination,
   failure,
-} from "../../server/auth.js";
+} from "../_server/auth.js";
 export async function onRequestGet({ request, env }) {
   try {
     const session = await authenticate(request, env);

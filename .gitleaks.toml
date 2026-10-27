@@ -1,0 +1,7 @@
+title = "Coastal Web Works secret detection"
+[extend]
+useDefault = true
+[[allowlists]]
+description = "Exact existing Supabase publishable key; public identifier, not a privileged credential"
+regexTarget = "secret"
+regexes = ['''^sb_publishable_7H7a0-s2p9xhI0D0DT84Iw_PSXA0Ybp$''']

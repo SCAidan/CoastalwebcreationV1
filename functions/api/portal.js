@@ -8,7 +8,7 @@ import {
   supa,
   authenticate,
   failure,
-} from "../../server/auth.js";
+} from "../_server/auth.js";
 const projectStates = [
   "Discovery",
   "Design",
@@ -44,13 +44,21 @@ export async function onRequestGet({ request, env }) {
         s,
         "client_accounts?select=id,business_name,email,active&order=created_at.desc&limit=200",
       ),
-      db(env, s, "portal_projects?select=*&order=created_at.desc&limit=200"),
-      db(env, s, "portal_requests?select=*&order=created_at.desc&limit=200"),
+      db(
+        env,
+        s,
+        "portal_projects?select=id,client_id,name,status,next_step,due_date,website_url,created_at,updated_at&order=created_at.desc&limit=200",
+      ),
+      db(
+        env,
+        s,
+        "portal_requests?select=id,project_id,title,body,status,owner_reply,created_at,updated_at&order=created_at.desc&limit=200",
+      ),
       s.role === "owner"
         ? db(
             env,
             s,
-            "website_inquiries?select=*&order=created_at.desc&limit=200",
+            "website_inquiries?select=id,name,email,business,service,style,message,status,linked_lead,created_at&order=created_at.desc&limit=200",
           )
         : [],
     ]);

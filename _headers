@@ -1,26 +1,22 @@
 /*
   X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; frame-src 'none'; worker-src 'none'; upgrade-insecure-requests
 /dashboard/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
-
-/templates/*
-  X-Robots-Tag: noindex, follow
 /login/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
-  Referrer-Policy: no-referrer
-  X-Frame-Options: DENY
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; form-action 'self'; frame-ancestors 'none'; base-uri 'none'
 /portal/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
-  X-Frame-Options: DENY
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; form-action 'self'; frame-ancestors 'none'; base-uri 'none'
 /thank-you/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
-/dashboard/*
-  X-Frame-Options: DENY
+/pay/*
+  X-Robots-Tag: noindex, follow
+/templates/*
+  X-Robots-Tag: noindex, follow

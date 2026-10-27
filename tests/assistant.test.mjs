@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-const source = await readFile(new URL('../functions/api/assistant.js', import.meta.url), 'utf8');
+const helper='data:text/javascript;base64,'+Buffer.from(await readFile(new URL('../functions/_server/auth.js',import.meta.url),'utf8')).toString('base64');
+const rawSource = await readFile(new URL('../functions/api/assistant.js', import.meta.url), 'utf8');
+const source=rawSource.replace('../_server/auth.js',helper);
 const {onRequestPost, onRequestGet} = await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
 const owner='owner-test';
 const env={SUPABASE_URL:'https://db.test',SUPABASE_PUBLISHABLE_KEY:'public-test',OWNER_USER_ID:owner,OPENAI_API_KEY:'server-only-test',OPENAI_MODEL:'test-model'};
@@ -28,6 +30,7 @@ test('assistant security, errors and payload filtering',async t=>{
  await t.test('limiter failure denies AI request',async()=>{route({noLimiter:true});assert.equal((await onRequestPost({request:req(),env})).status,503);assert.equal(calls.length,2)});
  await t.test('quota denial avoids provider charge',async()=>{route({limited:true});assert.equal((await onRequestPost({request:req(),env})).status,429);assert.equal(calls.length,2)});
  await t.test('malformed input rejected',async()=>{route();assert.equal((await onRequestPost({request:req({body:'invalid json'}),env})).status,400)});
+ await t.test('oversized question body is bounded before provider call',async()=>{route();const r=await onRequestPost({request:req({body:JSON.stringify({question:'x'.repeat(6000)})}),env});assert.equal(r.status,413);assert.ok(!calls.some(c=>c.url==='https://api.openai.com/v1/responses'))});
  await t.test('provider error becomes safe notice',async()=>{route({providerFailure:true});const r=await onRequestPost({request:req(),env});assert.equal(r.status,502);assert.ok(!(await r.text()).includes(env.OPENAI_API_KEY))});
  await t.test('answer uses selected fields and never exposes keys',async()=>{
   route();const r=await onRequestPost({request:req(),env});assert.equal(r.status,200);assert.equal((await r.json()).answer,'Focus on your lead.');

@@ -6,7 +6,7 @@ import {
   authenticate,
   supa,
   failure,
-} from "../../server/auth.js";
+} from "../_server/auth.js";
 export async function onRequestGet({ request, env }) {
   try {
     const s = await authenticate(request, env);
