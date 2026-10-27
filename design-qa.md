@@ -1,61 +1,55 @@
-# Template collection design QA
+# Template collection QA — second review build
 
-Reviewed October 27, 2026. Owner review of the finished designs remains pending. This is implementation QA, not authorization to merge or publish to the business domain.
+October 27, 2026. The owner's latest target is stronger differences in layout and customer journey, with gallery and Google/Yelp review placements. Finished designs remain pending owner review; a QA pass is not merge authorization.
 
-## Evidence and scope
+## Evidence and comparison
 
-- Selected target: the third displayed concept, Terminal Studio, charcoal/lime with service rail, typographic wordmark and isometric systems illustration. The user explicitly chose this direction and its logo treatment.
-- Combined comparison: `docs/qa/template-collection/technology-comparison.jpg` puts the selected source and final browser screenshot together. Source normalized to 1348 px width; implementation screenshot has 1348 px content plus browser scrollbar, captured in a 1363 × 936 CSS viewport at 1× density. Lower-page content extends beyond the one-screen source.
-- Three actual desktop renders: `docs/qa/template-collection/collection-review.jpg`; individual original browser captures are the three homepage preview WebPs under assets/.
-- Responsive evidence: `docs/qa/template-collection/mobile-review.jpg`; three 390 × 844 iframe surfaces, each with 375 px observed content width due to scrollbars. This checks responsive CSS in the actual browser, not hardware or touch emulation. Technology also checked at 768 px iframe / 753 px content width.
-- The two additions were built as requested original layouts for review. They have no previously selected mockup to claim pixel fidelity against.
+- `docs/qa/template-collection-v2/hvac-comparison.jpg` and `barber-comparison.jpg` place the previously reviewed first-screen designs beside the revised browser renders in the same comparison input. Both are normalized to 1348 × 926 content pixels at 1×. These are structure comparisons against the user's prior review artifacts, not claims to pixel-clone a regional business.
+- Regional official sites inspected: Monterey Bay Heating/Cooling, The Barbers Inc, Artisans Salon and Coastal Roots Hospitality. Actual captures and source-specific observations informed navigation and content priority. Full research provenance and limits are in docs/template-collection-research.md.
+- `mobile-review.jpg` shows the revised HVAC, barber and restaurant at 390 × 844 iframe surfaces (375 px observed content width). HVAC and barber were also checked at 768 px surfaces (753 px content).
+- `technology-gallery.jpg` and `restaurant-reviews.jpg` show actual gallery/review placements. Original desktop browser captures provide the two new homepage preview WebPs.
 
-## Iteration and resolved findings
+## Findings resolved
 
-1. P2, technology typography: initial headline was visibly undersized compared with the selected mockup. Increased desktop scale from 6.15vw to 7vw and reviewed a new combined comparison. Result preserves the source hierarchy and two-line composition.
-2. P2, image integration: original opaque diagram made a visible rectangular patch. Generated a genuinely transparent asset, exported WebP with alpha, and recaptured the hero. Background now integrates with the charcoal surface.
-3. P2, direction handoff: new frontend values would be rejected by the existing backend allowlist. Record the exact direction in the existing message field and normalize only the two new values to `unsure` on native FormData creation. Existing restaurant/professional values, form field names, fetch handler and API remain unchanged. All five direction choices appear in the native select (including undecided).
-4. P2, repeated selection: changing between the two additions could append conflicting generated notes. Replace only a complete matching generated note, preserve other project text, deduplicate repeated clicks, and fail safely if the message is full. Three focused regression tests cover these cases.
-5. P3, mobile line break behavior: added whitespace after responsive display breaks so hidden breaks do not join words.
+1. P2, layout sameness reported by Aidan: HVAC and salon originally shared hospitality-like serif/photo storytelling. Rebuilt HVAC as a utility/service hub with selection tiles and a request panel. Rebuilt barber as a persistent sidebar, uppercase portfolio cover, staggered monochrome images, filters and a service board. The combined comparisons show changes in navigation, first-screen structure, content ordering, type hierarchy, imagery and interaction—not only palette.
+2. P2, missing gallery and review examples: all four pages now contain galleries and explicit Google/Yelp placements. The restaurant's existing menu and warm identity remain intact; technology retains its selected lime design.
+3. P2, gallery filter geometry: a single visible photo initially left empty tracks in a three-column layout. Selected category now controls the appropriate grid tracks, with the same aria-pressed and hidden states. Browser checks verified Detail shows one item and All restores three.
+4. P2, lightbox load stability: set modal image dimensions from the already-loaded thumbnail so the image has reserved space before loading. Native dialog retains focus containment; Escape closes it and returns focus to the original link. Keyboard activation was verified on barber and restaurant.
+5. P3, responsive breaks: added spaces after hidden line breaks so mobile headings do not join words. Restaurant navigation wraps and preserves 44 px link targets with the new Gallery/Reviews links.
 
-## Required fidelity surfaces
+## Five required fidelity surfaces
 
-- Fonts/typography: technology uses the site's same-origin Arial/Helvetica stack; wordmark keeps Terminal bold white and Studio lime. Strong sans-serif hierarchy matches the selected direction. Slight glyph/spacing differences from generated lettering are intentional because the site retains system fonts. Hearth uses a warm upright serif; Forme uses oversized editorial serif/italics. Readable wrapping observed at desktop and phone-sized widths.
-- Spacing/layout: asymmetric technology service rail, open service rows and dark/light sections; Hearth picture-window hero with offset square panel, tabbed service finder and three-step band; Forme split cover, centered studio statement and treatment ledger. These are distinct compositions, not recolored copies. Desktop anchors and middle sections were inspected after scroll settled. No overlaps found.
-- Colors/tokens: technology charcoal #101611 and lime #c4fb70; Hearth forest #214b3e and paper #f4f2eb; Forme wine #612e28, cream #f6efe7 and tan #e8d7c5. Contrast, visible focus, selected control colors and non-color active weight checked. No external fonts/scripts/CDNs introduced.
-- Image quality: individual original generated assets exported as WebP; no flattened page screenshot is used as the page itself. Diagram is decorative with empty alt. Photos have descriptive alt. Homepage preview images are actual browser renders. No placeholders or fake icons.
-- Copy/content: fictional labels and FAQ explanations are visible. No invented reviews, qualifications, business addresses, service guarantees or functioning booking claims. All primary inquiry links go to Coastal Web Works. Template wordmarks are fictional, not an agency rebrand.
+- Fonts/typography: HVAC uses compact bold system sans-serif utility type. Barber uses a heavier uppercase sans-serif hierarchy and studio wordmark. Restaurant retains Georgia-led warm dining typography. Technology retains the selected charcoal/lime sans-serif. No external font requests, invented font raster text or cloned logos. Phone and desktop headings wrap without clipping; the barber phone headline intentionally spans three lines.
+- Spacing/layout: HVAC has header/intro/service desk/request panel, then job imagery; barber has sidebar/portfolio/service board; restaurant has food hero/menu/offset gallery/guest feedback; technology has service rail/system illustration/open service rows. The differing structures were checked in combined comparisons and actual lower sections.
+- Colors/tokens: navy/white/amber for HVAC, near-black/off-white/red for barber, existing warm dining palette for restaurant, selected charcoal/lime for technology. Focus remains visible. Selection uses aria-pressed plus a changed fill; native disclosure and dialog states remain semantic.
+- Image quality: six original generated individual photos exported to same-origin WebP, all labeled sample/generated/not client work. No reference-business photos, brands, portraits or review content copied. The technology gallery uses a labeled illustration, not a fabricated completed client project. Covers are actual browser renders.
+- Copy/content: explicit fictional labels remain. Google/Yelp areas say 'Demo placeholder · No reviews connected'. No fake names, customer quotes, ratings, counts or aggregate-rating schema. The HVAC request selector demonstrates a possible flow and clearly states that no service request is sent. No appointment booking or payment is represented as live.
 
-## Interactions, accessibility and integration
+## Interactions and accessibility
 
-- Technology service rail uses real section anchors and updates aria-current plus selected weight/color. Native FAQ disclosures work without JavaScript.
-- Hearth service buttons switch all three titles/descriptions and aria-pressed states. JavaScript-only controls are hidden until initialized; no-JS service information remains available.
-- Forme native treatment disclosures expand/collapse. Navigation and all CTAs have real destinations.
-- All pages retain skip links, semantic headings, image alt, favicon, noindex policy and root-relative clean URLs.
-- Phone-sized technology, home services and salon have document scrollWidth equal to content width (375 px). Tablet technology likewise 753/753. Device hardware testing remains a follow-up.
-- Native select includes the new directions; links from both new pages and homepage cards populate the chosen direction and project notes. Existing 'Discuss a new site' still selects 'A new website' among four service options.
-- Safe local-only synthetic submission showed the preview-only response, not a success receipt. No production inquiry, notification email or payment was sent. Local preview sink is outside repository and never in release artifacts.
-- Browser logs observed no site JavaScript exception; unrelated Chrome extension metadata errors were present. Native disclosure and service switch interactions verified.
-- Reduced-motion CSS disables smooth scrolling, transitions and animation.
+- HVAC Heating/Cooling/Air quality buttons change the heading, description and aria-pressed. Request dropdown changes explanatory guidance. No form is submitted by those controls.
+- Barber All/Cuts/Detail filters hide the appropriate figures and change the grid. Links work as image-file fallbacks without JavaScript.
+- Shared gallery uses a native modal dialog with a named close button, descriptive alt, sample notice, Escape handling and returned focus. Closing with Escape returned focus to Texture / Fade in the actual browser. Restaurant keyboard image activation opened the same dialog.
+- Restaurant menu behavior remains unchanged; gallery/review links are real anchors. Technology gallery is discoverable from its header.
+- Phone-sized document scrollWidth equals clientWidth for HVAC, barber and restaurant (375/375). Tablet HVAC and barber are 753/753. This checks responsive CSS; physical mobile hardware remains untested.
+- Browser logs show no website JavaScript exception. Unrelated Chrome extension metadata errors were observed and excluded. A rapid click during a smooth anchor scroll missed its target in automation; keyboard activation and the settled page state verified the actual gallery behavior.
+- Reduced-motion policy remains supported; all code/assets are same-origin and the existing CSP/security headers are unchanged.
 
-## Checks
+## Validation and boundaries
 
-- 89 automated tests pass (86 existing plus three handoff regression tests).
-- Build and release scan: 51 public files, zero findings.
-- HTML check: 13 pages; no missing local targets/anchors, missing image alt, missing head favicon, redirecting internal .html link or apostrophe-bearing business name.
-- No API, auth, Supabase, payment, portal, dashboard, CSP or security-header logic changed. Only nine explicit public-file paths were added under functions/_server/public-assets.mjs so new public pages/assets pass the existing publication boundary.
-- Restaurant files, robots and the exact original four-URL sitemap are unchanged.
+- 91 automated tests pass: existing security/integration coverage plus handoff and gallery/sample-label tests.
+- Build and release scan: 62 public files, zero findings.
+- Static HTML check: 13 pages, no missing local link targets/anchors, duplicate IDs, missing image alt, missing head favicon, redirecting internal .html links or apostrophe-bearing business name.
+- No API/auth/Supabase/payment/portal/dashboard/security-header logic changes. Only explicit new public-file paths added to functions/_server/public-assets.mjs; publication-boundary logic is unchanged.
+- Existing inquiry field names, submit fetch and thank-you redirect are unchanged. Style handoff compatibility is preserved.
+- No production inquiry, review connection, message, email or payment was sent during this revision. No PR or merge was performed. The original four-URL sitemap and robots file remain unchanged.
 
-## Follow-up checklist
+## Remaining review
 
-- [x] Selected technology design implemented and compared after corrections.
-- [x] Home services and salon layouts implemented with different structures.
-- [x] Four-card showcase, real preview images and direction handoff connected.
-- [x] Browser interactions, responsive sizes, links and automated release checks reviewed.
-- [ ] Aidan reviews all three completed designs.
-- [ ] Create PR / merge only after owner review; then verify production.
-- [ ] Real-phone acceptance check before customer reuse.
+- Aidan assesses the revised layouts and placeholder sections before reusable-reference approval or PR/merge.
+- Real client photography, genuine review/profile permissions and booking choices require client-specific decisions.
+- Real-phone acceptance testing remains a follow-up; no broad accessibility certification is claimed.
 
-No unresolved P0/P1/P2 implementation issue identified. Generated source font nuances and regenerated illustration details remain acceptable P3 differences. Future reuse remains subject to owner approval and customer-specific content/integration work.
+No unresolved P0/P1/P2 implementation issue was found after the fixes and recaptures. The desired style is an intentional original adaptation of customer-task priorities, not a copy of the regional sources.
 
 final result: passed

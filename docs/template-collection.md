@@ -1,13 +1,13 @@
 # Coastal Web Works design example catalog
 
-Status: draft implementations awaiting Aidan's review; not approved client defaults yet. October 27, 2026.
+Status: second review build after Aidan requested stronger differences in layout, regional business research, galleries and review placements. Not approved client defaults yet. October 27, 2026.
 
 | Example | Route | Distinct layout | Best starting point |
 | --- | --- | --- | --- |
 | Sunday Table | /templates/restaurant | Existing full-width food story, menu filters and warm hospitality sections | Restaurants, cafés, hospitality |
 | Terminal Studio | /templates/professional | Charcoal/lime, asymmetric service index rail, systems art, open service rows | IT, technology and professional services |
-| Hearth | /templates/home-services | Picture-window hero with square offset panel, interactive service finder, three-step band | HVAC, electrical, plumbing and other trades |
-| Forme Hair Studio | /templates/salon | Split editorial cover, oversized serif wordmark, centered statement, treatment ledger | Salons, barbers and beauty studios |
+| Hearth | /templates/home-services | Utility header, service hub, selectable tiles and request panel; project gallery | HVAC, electrical, plumbing and other trades |
+| Forme Barber Studio | /templates/salon | Studio sidebar, oversized uppercase type, staggered haircut portfolio, filters and service board | Barbers, grooming studios and portfolio-led salons |
 
 ## User decisions
 
@@ -39,3 +39,7 @@ Existing restaurant/professional values remain accepted unchanged. Frontend valu
 1. Standalone selected lime Terminal Studio hero illustration: sparse isometric server, laptop, cloud and nodes; fine lime outlines, subtle charcoal planes, transparent surroundings; no text, logos or blue.
 2. Premium editorial California cedar/plaster home exterior with unbranded heat pump on right; warm afternoon light, drought-tolerant planting, wide composition; no text, people or logos.
 3. Boutique salon interior with rounded sculptural mirrors, walnut stations, cream chairs, warm plaster and terracotta accents, natural light; portrait composition; no text, people or logos.
+
+## Second review build
+
+See docs/template-collection-research.md for the real regional websites inspected and why the structures changed. All four examples now contain sample galleries and explicit Google/Yelp review placements. No live review integration, star ratings, review counts or customer quotes are fabricated. New individual generated photos are labeled as samples. Gallery lightboxes support native modal focus and Escape; barber filters use accessible pressed states. The restaurant menu interaction is preserved. HVAC has its own task-first stylesheet; barber has a separate portfolio layout.
