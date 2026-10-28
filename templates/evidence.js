@@ -12,9 +12,10 @@
   let trigger=null;
   images.forEach(link=>link.addEventListener('click',event=>{
     if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
-    if(!link.querySelector('img'))return;
+    const thumbnail=link.querySelector('img') || link.closest('figure')?.querySelector('[data-compare-after]');
+    if(!thumbnail)return;
     event.preventDefault();trigger=link;
-    const thumbnail=link.querySelector('img');image.width=thumbnail.naturalWidth||1200;image.height=thumbnail.naturalHeight||1000;
+    image.width=thumbnail.naturalWidth||1200;image.height=thumbnail.naturalHeight||1000;
     image.alt=thumbnail.alt;image.src=link.href;
     caption.textContent=link.dataset.gallery;
     dialog.showModal();close.focus();

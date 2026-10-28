@@ -45,6 +45,8 @@ export const PUBLIC_FILES = Object.freeze([
   "assets/template-home-comfort-preview.webp",
   "assets/template-construction-home.webp",
   "assets/template-construction-detail.webp",
+  "assets/template-construction-home-before.webp",
+  "assets/template-construction-detail-before.webp",
   "templates/salon.html",
   "templates/collection.css",
   "templates/collection.js",

@@ -69,4 +69,12 @@ No unresolved P0/P1/P2 implementation issue was found after the fixes and recapt
 - Phone/tablet width checks: 375/375 and 753/753, with readable headings and no horizontal overflow. New screenshots under docs/qa/template-collection-v4. Physical mobile hardware remains untested.
 - 92 automated tests pass; 14 HTML pages pass static checks; 68 explicit public files pass build/release scan.
 
+## Interactive before/after / latest update
+
+- Two construction gallery photos now compare matching generated old/new designs, with approved stronger before imagery rather than furniture-only differences.
+- Browser: range Home shows 0% before/100% after; End shows 100% before/0% after; ArrowRight/ArrowLeft update the kitchen value. Clicking the house photo after End resets the split to its pointer location. After-image text link opens the native modal; Escape returns focus to that link.
+- Focused tests cover initial state, endpoint labels, invalid values, active pointer tracking, unrelated pointers, bounds clamping and cancellation. 94 tests pass. Build/release scan: 70 explicit public files; 14 HTML checks pass.
+- Phone/tablet comparison gallery has matching client/scroll widths (375/375 and 753/753). Captures in docs/qa/template-collection-v5. Native range remains visible, labeled and keyboard accessible; touch hardware remains untested.
+- Generated sample disclosures and original after images preserved. Two before assets added explicitly to public allowlist; API/security behavior unchanged. No external dependency or real inquiry sent.
+
 final result: passed
