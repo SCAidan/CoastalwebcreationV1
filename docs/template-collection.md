@@ -88,3 +88,7 @@ Restaurant now uses an original Sunday Table plate/cutlery wordmark in place of 
 Use logo-led covers selectively for future examples. Keep type, photography and task hierarchy different between business categories rather than giving every template the same short-slogan formula. Existing menus, service controls, portfolio filters, gallery dialogs, construction comparisons and inquiry handoff remain unchanged.
 
 96 tests pass; build/release scan covers 73 public files; 14 HTML pages pass static checks. Actual desktop captures refresh the three homepage thumbnails. Phone layouts have no horizontal overflow at 375 px, and HVAC/barber tablet widths match at 753 px. Desktop last card width matches the first (601 px) and center error is 0 px. Evidence: docs/qa/template-collection-v6.
+
+## Hearth logo refinement
+
+Aidan requested a more deliberate minimalist logo with less of a generated appearance. Refined the existing native SVG: separate regular sun and six-fold snowflake, consistent 3 px icon strokes, simpler circular outline, no split divider/extra underline, and calmer wordmark spacing. Keep the existing blue/amber palette, placement and identity. The homepage preview reflects the refined mark. No layout or behavior changes. Vector geometry and desktop/180 px phone render were checked; the logo remains same-origin and accessible through existing alt text.

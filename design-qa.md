@@ -95,4 +95,10 @@ GitHub verification passed the 96 tests, dependency audit, independent history s
 - Phone content/scroll widths match at 375/375 for all three; HVAC and barber tablet widths match at 753/753. No clipped logo or heading was found after loading settled.
 - Existing 96 tests pass; 14 HTML checks pass; build/release scan covers 73 files; public artifact Gitleaks scan has zero findings. No behavior/API/auth/payment/CSP/security-header change; three exact public SVG paths added.
 
+## Hearth mark refinement
+
+- Replaced the irregular split symbol with a regular sun and a true six-fold snowflake. Reduced clutter, standardized icon stroke widths and balanced wordmark tracking. Blue/amber colors, viewBox, placement, accessible alt and page behavior are unchanged.
+- SVG parses correctly; desktop rendering and the 180 px phone logo were inspected. Homepage HVAC thumbnail refreshed. Actual vector browser capture: docs/qa/template-collection-v7/hearth-logo.jpg.
+- 73-file build/release scan remains clean. This is a reversible artwork-only refinement; existing behavior tests are unchanged.
+
 final result: passed
