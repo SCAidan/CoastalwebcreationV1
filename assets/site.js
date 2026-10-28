@@ -20,7 +20,7 @@ document.querySelectorAll('[data-service]').forEach(link=>link.addEventListener(
 document.querySelectorAll('.faq details').forEach(details=>{let running;details.querySelector('summary').addEventListener('click',event=>{if(paused||!details.animate)return;event.preventDefault();if(running){running.cancel();running=null;details.style.height=''}const start=details.getBoundingClientRect().height,opening=!details.open;details.open=true;const end=opening?details.getBoundingClientRect().height:details.querySelector('summary').getBoundingClientRect().height;running=animate(details,[{height:start+'px'},{height:end+'px'}],{duration:220,easing:'ease-out'});running?.finished.then(()=>{details.open=opening;details.style.height='';running=null}).catch(()=>{})})});
 const styleField=$('#style');
 const styleNames={restaurant:'Restaurant & hospitality example',professional:'Technology & professional services example'};
-const exampleNames={'home-services':'Home services & trades example',salon:'Salon & barber example','home-comfort':'Photo-led home services example'};
+const exampleNames={'home-services':'Home services & trades example',salon:'Salon & barber example','home-comfort':'Construction & remodeling example'};
 const exampleNotes=Object.values(exampleNames).map(name=>'Design direction: '+name+'.');
 function withoutExampleNote(value){return value.split('\n\n').filter(part=>!exampleNotes.includes(part)).join('\n\n')}
 function chooseStyle(value){

@@ -49,3 +49,7 @@ Built-in ImageGen, six individual prompts: (1) monochrome adult skin-fade portra
 The photo-led Hearth Home example restores the original green panel and wide home photograph at a separate /templates/home-comfort route. It adds the same honest gallery and Google/Yelp placements. No further external research or copied assets were needed to restore this user-selected direction. This expands the choices without making the practical HVAC service desk resemble the restaurant or barber.
 
 The connected Figma file now includes an editable catalog and research board with original content images, routes, approval states, source URLs, findings and reuse rules. Drive notes and a visual cover sheet provide the same handover. Preserve the distinction between source observations, design interpretation and tested behavior.
+
+## Latest category change
+
+After approving the look of all five layouts, Aidan requested converting one HVAC option to a different home-service business. The photo-led example is now construction/remodeling (Hearth Build), while the utility/service-desk example remains HVAC. The original visual structure stays; copy, sample imagery, service selector, homepage card and inquiry label now match remodeling, additions and finish work. No new external-business research was used or implied for this category conversion. Stable route: /templates/home-comfort. Original generated construction assets and prompts are documented in docs/template-collection.md. Figma and Drive references are updated to reflect this decision.

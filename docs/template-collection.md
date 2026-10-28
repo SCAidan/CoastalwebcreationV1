@@ -1,6 +1,6 @@
 # Coastal Web Works design example catalog
 
-Status: Aidan approved the four revised templates on October 27, 2026 and requested an additional photo-led home-services example based on the original HVAC concept. The fifth finished page is prepared for review. No production merge implied.
+Status: Aidan approved the four revised templates on October 27, 2026 and requested an additional photo-led home-services example based on the original HVAC concept. Aidan subsequently liked the fifth page and requested converting one HVAC option to another home service. The photo-led page is now a construction/remodeling example; the service-first HVAC stays unchanged. No production merge implied.
 
 | Example | Route | Distinct layout | Best starting point |
 | --- | --- | --- | --- |
@@ -8,7 +8,7 @@ Status: Aidan approved the four revised templates on October 27, 2026 and reques
 | Terminal Studio | /templates/professional | Charcoal/lime, asymmetric service index rail, systems art, open service rows | IT, technology and professional services |
 | Hearth | /templates/home-services | Utility header, service hub, selectable tiles and request panel; project gallery | HVAC, electrical, plumbing and other trades |
 | Forme Barber Studio | /templates/salon | Studio sidebar, oversized uppercase type, staggered haircut portfolio, filters and service board | Barbers, grooming studios and portfolio-led salons |
-| Hearth Home | /templates/home-comfort | Large home photograph, offset green panel, service finder and care-process band | Photo-led home services, home improvement and premium trades |
+| Hearth Build | /templates/home-comfort | Large project photograph, offset green panel, remodels/additions/finish-work selector and build-process band | Construction and residential remodeling |
 
 ## User decisions
 
@@ -52,3 +52,11 @@ The original green/cream photo-led HVAC design is retained at /templates/home-co
 Figma: https://www.figma.com/design/0fgc6U9h4hFQ08XIBVkxNY?node-id=6-2 — editable five-template reference catalog; research board at node 6:54. These are reference boards, not full editable website screens. Existing technology exploration is archived.
 
 Drive reference folder: https://drive.google.com/drive/folders/1u9hAeQLftOyHFGuH3No0uS3BCaISnVOl — current catalog, approval history, official-source research, adaptation rules and next work. See docs/qa/template-collection-v3 for the fifth browser captures.
+
+## Construction conversion / latest decision
+
+Aidan liked the fifth layout, then requested changing one of the two HVAC examples to a different home service before PR. The photo-led route is now Hearth Build, a fictional construction/remodeling business. Preserve its stable /templates/home-comfort URL, files and inquiry value; the visible option is Construction & remodeling example. Service choices are Remodels, Additions and Finish work. The practical blue Hearth Heating & Air example is unchanged.
+
+New original generated assets: assets/template-construction-home.webp and assets/template-construction-detail.webp. The cover has no HVAC equipment; gallery images show a completed cedar/plaster home and oak cabinetry/stone finishes. Labels say generated sample / not client work. No licenses, contractor number, guarantees, customer quotes or real project claims invented.
+
+Built-in image generation prompts: (1) wide editorial completed California coastal cedar/plaster home, timber deck, golden light, no HVAC units, workers, text or branding; (2) close editorial oak kitchen cabinetry, timber joinery and stone finishes, natural light, no people, text, branding or HVAC equipment. Generated with the built-in tool, exported to same-origin WebP. Screenshot evidence: docs/qa/template-collection-v4.

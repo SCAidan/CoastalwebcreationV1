@@ -1,17 +1,17 @@
 (() => {
   'use strict';
   const services = {
-    heating: ['01 / Heating', 'Make room for warm.', 'A place for heating repairs, system replacements and seasonal checkups. Help visitors understand their options before they get in touch.'],
-    cooling: ['02 / Cooling', 'A breath of fresh air.', 'Room to explain efficient cooling, system upgrades and comfort options. Give customers a clear next step when their home needs attention.'],
-    care: ['03 / Home care', 'Good care goes a long way.', 'A place for routine maintenance and seasonal upkeep. Show how small, thoughtful checks can help customers look after their home.']
+    remodels: ['01 / Remodels', 'A fresh take on home.', 'A place to showcase kitchen, bathroom and whole-home remodeling. Help homeowners picture what could change, from the first conversation to the final details.'],
+    additions: ['02 / Additions', 'More room for what matters.', 'Show how room additions and extensions can create useful space while working with the character of the existing home.'],
+    finishes: ['03 / Finish work', 'Thoughtful down to the details.', 'A place for cabinetry, trim and interior finishes. Let close-up project photography show the care that goes into the work.']
   };
   const detail = document.getElementById('home-service-detail');
   const buttons = document.querySelectorAll('[data-home-service]');
   if (detail) buttons.forEach(button => {
     button.hidden = false;
     button.addEventListener('click', () => {
-      const service = services[button.dataset.homeService];
       if (!Object.hasOwn(services, button.dataset.homeService)) return;
+      const service = services[button.dataset.homeService];
       buttons.forEach(other => other.setAttribute('aria-pressed', String(other === button)));
       detail.querySelector('.overline').textContent = service[0];
       detail.querySelector('h3').textContent = service[1];

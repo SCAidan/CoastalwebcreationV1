@@ -57,8 +57,8 @@ test('unknown query values and full project notes are handled safely',()=>{
 test('photo-led example preserves its direction through compatible FormData',()=>{
  const {fields,listeners}=setup('?example=home-comfort');
  assert.equal(fields['#style'].value,'home-comfort');
- assert.match(fields['#message'].value,/Photo-led home services example/);
+ assert.match(fields['#message'].value,/Construction & remodeling example/);
  const payload=new FormData();payload.set('style',fields['#style'].value);payload.set('message',fields['#message'].value);
  listeners.formdata({formData:payload});
- assert.equal(payload.get('style'),'unsure');assert.match(payload.get('message'),/Photo-led home services example/);
+ assert.equal(payload.get('style'),'unsure');assert.match(payload.get('message'),/Construction & remodeling example/);
 });

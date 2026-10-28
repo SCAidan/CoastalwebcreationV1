@@ -61,4 +61,12 @@ No unresolved P0/P1/P2 implementation issue was found after the fixes and recapt
 - No API/auth/Supabase/payment/security-header behavior changed. Four explicit public-file allowlist entries added for this example only. Original sitemap/robots unchanged.
 - Figma editable reference catalog and regional research boards inspected after text/auto-layout corrections and original image placement. No clipped text or overlapping card content remains. The old exploration is archived.
 
+## Construction conversion / latest review
+
+- Converted the photo-led fifth example to Hearth Build construction/remodeling; preserved the approved big-photo/green-panel structure and retained the practical HVAC page unchanged.
+- Changed hero/metadata, services, process, FAQ, gallery, homepage card, style label and generated inquiry note. Stable URL and backend compatibility retained. Two explicit same-origin asset entries added to the allowlist; no API or security behavior changes.
+- Browser verified Additions and Finish work content changes, finish-work gallery modal, Escape closing and inquiry handoff selecting Construction & remodeling example. No inquiry submitted.
+- Phone/tablet width checks: 375/375 and 753/753, with readable headings and no horizontal overflow. New screenshots under docs/qa/template-collection-v4. Physical mobile hardware remains untested.
+- 92 automated tests pass; 14 HTML pages pass static checks; 68 explicit public files pass build/release scan.
+
 final result: passed
