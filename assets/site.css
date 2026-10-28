@@ -26,3 +26,7 @@
 @media(max-width:1100px){.brand{width:185px}}
 .btn:disabled{cursor:wait;opacity:.65;transform:none;box-shadow:none}
 @media(min-width:961px){.nav{padding-block:10px}}
+
+/* Keep an odd final example the same size as the others, centered in its row. */
+.template-card:last-child:nth-child(odd){grid-column:1 / -1;width:calc((100% - 34px) / 2);justify-self:center}
+@media(max-width:800px){.template-card:last-child:nth-child(odd){width:100%}}

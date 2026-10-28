@@ -1,0 +1,24 @@
+{
+  "desktop": {
+    "cards": 5,
+    "first_card_width": 601,
+    "last_card_width": 601,
+    "last_card_center_error_px": 0
+  },
+  "phone_content_widths": {
+    "restaurant": 375,
+    "hvac": 375,
+    "barber": 375
+  },
+  "phone_scroll_widths": {
+    "restaurant": 375,
+    "hvac": 375,
+    "barber": 375
+  },
+  "tablet_hvac_barber_content_and_scroll_width": 753,
+  "homepage_phone_card_widths": {
+    "first": 335,
+    "last": 335,
+    "grid": 335
+  }
+}

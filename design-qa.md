@@ -87,4 +87,12 @@ No unresolved P0/P1/P2 implementation issue was found after the fixes and recapt
 
 GitHub verification passed the 96 tests, dependency audit, independent history scan, release scan and Worker compilation. Gitleaks then interpreted the literal design-palette wording “tokens: navy/white/amber” in historical QA prose as a generic API key. The finding was inspected and confirmed to contain only color names. Renamed the current prose to “Color palette” and added an exact-secret allowlist for ^navy/white/amber$ in .gitleaks.toml so historical notes remain scannable. No rule, file, directory or history scan was disabled; no actual credential was added or exposed. Full Gitleaks history and public-artifact scans pass locally after this narrowly scoped correction.
 
+## Logo covers and centered final card / latest update
+
+- Kept five approved examples; final card is centered at the same width as other desktop cards. Actual DOM geometry: 601 px first/last widths, 0 px center error. The mobile override keeps the final card full width.
+- Restaurant has an original warm SVG identity instead of the repeated slogan cover. HVAC adds a blue/amber emblem in the right-hand space. Barber replaces cover slogan and repeated short phrases with a black/red monogram and wordmark. Image alt keeps logo-led h1 headings meaningful.
+- Actual desktop screens are reflected in updated restaurant/HVAC/barber cover assets and docs/qa/template-collection-v6/logo-covers.jpg. Phone capture and measured geometry are in that folder. SVGs parse successfully and use only same-origin static shapes/system text.
+- Phone content/scroll widths match at 375/375 for all three; HVAC and barber tablet widths match at 753/753. No clipped logo or heading was found after loading settled.
+- Existing 96 tests pass; 14 HTML checks pass; build/release scan covers 73 files; public artifact Gitleaks scan has zero findings. No behavior/API/auth/payment/CSP/security-header change; three exact public SVG paths added.
+
 final result: passed

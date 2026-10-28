@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 310" fill="none">
+  <circle cx="160" cy="110" r="83" fill="#fff" stroke="#123e80" stroke-width="3"/>
+  <path d="M160 52v116" stroke="#123e80" stroke-width="2"/>
+  <g stroke="#d28b20" stroke-width="4" stroke-linecap="round">
+    <path d="M143 81a31 31 0 0 0 0 58M129 65l-6-11m-12 31-11-6m4 31H91m20 25-11 6m29 15-6 11"/>
+  </g>
+  <g stroke="#123e80" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M185 75v70m-23-58 46 46m0-46-46 46m23-58 8 8m-8-8-8 8m8 62 8-8m-8 8-8-8m31-50-11 1m11-1-1 11m-45-11 11 1m-11-1 1 11m45 35-1-11m1 11-11-1m-35 1 1-11m-1 11 11-1"/>
+  </g>
+  <path d="M83 193h154" stroke="#123e80" stroke-width="2"/>
+  <text x="160" y="244" fill="#123e80" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800" text-anchor="middle" letter-spacing="-2">HEARTH</text>
+  <text x="160" y="274" fill="#123e80" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="3">HEATING &amp; AIR</text>
+</svg>

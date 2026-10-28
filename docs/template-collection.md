@@ -78,3 +78,13 @@ Aidan requested making construction one of the first examples customers see and 
 Each comparison makes one 1.8-second, 15-percentage-point sweep around the center after at least 45% of its photo comes into view, then returns to 50/50. It never repeats during that page visit, stops immediately on range focus/input or photo interaction, and does not run for prefers-reduced-motion. Changes to reduced-motion preference also stop active motion. Native comparison controls remain available. Tests cover viewport-triggered start, interruption, center reset, one-time behavior and reduced-motion exclusion.
 
 Final automated count: 96 passing tests; 70 explicit public files; 14 HTML pages. Figma card contains comparison/approval notes; further Figma changes reached the Starter MCP call limit, so the latest ordering/motion notes are preserved in Drive and Git.
+
+## Logo-led covers and balanced last row / latest request
+
+Aidan requested a sixth example or a centered final card and less repetition of slogan-led first screens. Chose to keep the approved five and center the fifth at the same width as its neighbors; mobile remains one full-width column. Construction remains first.
+
+Restaurant now uses an original Sunday Table plate/cutlery wordmark in place of the hero slogan and eyebrow. Barber uses an original Forme monogram/wordmark in place of its main cover slogan and adjacent repeated short phrases; its small sidebar tagline is removed. HVAC gains a matching sun/snowflake Hearth emblem on the right of the existing practical heading, with the introductory eyebrow removed. These are fictional demo-brand logos, not replacements for Coastal Web Works branding or actual client identity. New same-origin SVG files are template-restaurant-logo.svg, template-hvac-logo.svg and template-barber-logo.svg; their explicit allowlist entries are the only server-side change.
+
+Use logo-led covers selectively for future examples. Keep type, photography and task hierarchy different between business categories rather than giving every template the same short-slogan formula. Existing menus, service controls, portfolio filters, gallery dialogs, construction comparisons and inquiry handoff remain unchanged.
+
+96 tests pass; build/release scan covers 73 public files; 14 HTML pages pass static checks. Actual desktop captures refresh the three homepage thumbnails. Phone layouts have no horizontal overflow at 375 px, and HVAC/barber tablet widths match at 753 px. Desktop last card width matches the first (601 px) and center error is 0 px. Evidence: docs/qa/template-collection-v6.
