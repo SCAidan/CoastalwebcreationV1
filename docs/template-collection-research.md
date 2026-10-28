@@ -38,8 +38,14 @@ On a real project, use approved business photography and genuine feedback with a
 
 The prior layouts remain in Git history, not as approved defaults. HVAC styles/behavior are isolated in templates/hvac.css and hvac.js; barber styles in barber.css; gallery/review presentation and lightbox/filter behavior in evidence.css and evidence.js. These are real DOM pages and interactions, not flattened screenshot mockups.
 
-The four demos still require Aidan's review. Do not promote them to approved future-client references, open/merge a PR or change the production domain merely because tests pass.
+Aidan subsequently approved the four revised demos and asked to retain the original large-photo HVAC direction as a separate fifth example. The finished fifth page is prepared for review at /templates/home-comfort. The four revised structures can be used as approved visual references; customer-specific facts and integrations still need verification. Do not merge automatically or treat a preview as production.
 
 ## New imagery provenance
 
 Built-in ImageGen, six individual prompts: (1) monochrome adult skin-fade portrait with textured top, dark backdrop; (2) a different adult with curly top/low taper, matching monochrome; (3) tight professional beard-detailing photo, unbranded trimmer, no injury; (4) technician hands testing a condenser beside a California home, navy sleeves, no face/logo; (5) organized residential air-handler and metal duct installation, neutral utility room; (6) warm neighborhood dining room with walnut, linen, ceramics and afternoon light. Each excludes text, logos and recognizable real-business branding. Exported WebP files live under assets/template-barber-*, template-hvac-* and template-restaurant-room.webp.
+
+## Fifth direction and durable references
+
+The photo-led Hearth Home example restores the original green panel and wide home photograph at a separate /templates/home-comfort route. It adds the same honest gallery and Google/Yelp placements. No further external research or copied assets were needed to restore this user-selected direction. This expands the choices without making the practical HVAC service desk resemble the restaurant or barber.
+
+The connected Figma file now includes an editable catalog and research board with original content images, routes, approval states, source URLs, findings and reuse rules. Drive notes and a visual cover sheet provide the same handover. Preserve the distinction between source observations, design interpretation and tested behavior.

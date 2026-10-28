@@ -1,6 +1,6 @@
 # Coastal Web Works design example catalog
 
-Status: second review build after Aidan requested stronger differences in layout, regional business research, galleries and review placements. Not approved client defaults yet. October 27, 2026.
+Status: Aidan approved the four revised templates on October 27, 2026 and requested an additional photo-led home-services example based on the original HVAC concept. The fifth finished page is prepared for review. No production merge implied.
 
 | Example | Route | Distinct layout | Best starting point |
 | --- | --- | --- | --- |
@@ -8,12 +8,13 @@ Status: second review build after Aidan requested stronger differences in layout
 | Terminal Studio | /templates/professional | Charcoal/lime, asymmetric service index rail, systems art, open service rows | IT, technology and professional services |
 | Hearth | /templates/home-services | Utility header, service hub, selectable tiles and request panel; project gallery | HVAC, electrical, plumbing and other trades |
 | Forme Barber Studio | /templates/salon | Studio sidebar, oversized uppercase type, staggered haircut portfolio, filters and service board | Barbers, grooming studios and portfolio-led salons |
+| Hearth Home | /templates/home-comfort | Large home photograph, offset green panel, service finder and care-process band | Photo-led home services, home improvement and premium trades |
 
 ## User decisions
 
 Aidan chose the third displayed charcoal/lime concept and its Terminal Studio wordmark. He also liked the first navy/cyan concept, but preferred green for this build. Keep the approved Coastal Web Works cypress logo on the agency website and business documents; the fictional demo wordmarks are not replacements for that logo.
 
-The request is to review the finished templates before treating them as references for future client work. Do not mark this catalog as approved or merge automatically. Preserve their different layout structures when adapting them; do not make every future customer site a palette swap.
+The four revised examples are approved as visual starting points for future client work. The photo-led addition restores the first HVAC direction as a separate fifth example, including gallery and review placements. Its finished page awaits review. Do not merge automatically. Preserve their different layout structures when adapting them; do not make every future customer site a palette swap.
 
 ## Safe adaptation
 
@@ -23,7 +24,7 @@ All assets stay same-origin. No external scripts/fonts, credentials, customer da
 
 ## Inquiry compatibility
 
-Existing restaurant/professional values remain accepted unchanged. Frontend values home-services/salon are included in the native select and recorded as a clearly labeled line in message. The existing formdata event normalizes only these new values to unsure for compatibility with the unchanged backend allowlist. Preserve the note in submissions. Do not extend the Supabase gateway implicitly or introduce a second form API.
+Existing restaurant/professional values remain accepted unchanged. Frontend values home-services/salon/home-comfort are included in the native select and recorded as a clearly labeled line in message. The existing formdata event normalizes only these new values to unsure for compatibility with the unchanged backend allowlist. Preserve the note in submissions. Do not extend the Supabase gateway implicitly or introduce a second form API.
 
 ## Assets and provenance
 
@@ -43,3 +44,11 @@ Existing restaurant/professional values remain accepted unchanged. Frontend valu
 ## Second review build
 
 See docs/template-collection-research.md for the real regional websites inspected and why the structures changed. All four examples now contain sample galleries and explicit Google/Yelp review placements. No live review integration, star ratings, review counts or customer quotes are fabricated. New individual generated photos are labeled as samples. Gallery lightboxes support native modal focus and Escape; barber filters use accessible pressed states. The restaurant menu interaction is preserved. HVAC has its own task-first stylesheet; barber has a separate portfolio layout.
+
+## Fifth example and reference handoff
+
+The original green/cream photo-led HVAC design is retained at /templates/home-comfort, with the existing original home photograph, an independent service selector and gallery. The service-first HVAC remains at /templates/home-services. Homepage now lists five examples and all choices reach the existing inquiry flow. Four additional explicit public-file paths are allowlisted; no backend behavior changed.
+
+Figma: https://www.figma.com/design/0fgc6U9h4hFQ08XIBVkxNY?node-id=6-2 — editable five-template reference catalog; research board at node 6:54. These are reference boards, not full editable website screens. Existing technology exploration is archived.
+
+Drive reference folder: https://drive.google.com/drive/folders/1u9hAeQLftOyHFGuH3No0uS3BCaISnVOl — current catalog, approval history, official-source research, adaptation rules and next work. See docs/qa/template-collection-v3 for the fifth browser captures.

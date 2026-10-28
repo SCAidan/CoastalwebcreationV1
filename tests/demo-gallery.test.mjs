@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import {publicPath} from '../functions/_server/public-assets.mjs';
 
-const routes=['restaurant','professional','home-services','salon'];
+const routes=['restaurant','professional','home-services','salon','home-comfort'];
 test('each public demo provides honest review placements and an accessible gallery fallback',()=>{
  for(const route of routes){
   const html=readFileSync(new URL(`../templates/${route}.html`,import.meta.url),'utf8');

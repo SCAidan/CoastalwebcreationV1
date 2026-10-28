@@ -1,6 +1,6 @@
 # Template collection QA — second review build
 
-October 27, 2026. The owner's latest target is stronger differences in layout and customer journey, with gallery and Google/Yelp review placements. Finished designs remain pending owner review; a QA pass is not merge authorization.
+October 27, 2026. The owner's latest target is stronger differences in layout and customer journey, with gallery and Google/Yelp review placements. The four revised designs were subsequently approved by Aidan. The fifth photo-led addition is documented below; a QA pass is not merge authorization.
 
 ## Evidence and comparison
 
@@ -46,10 +46,19 @@ October 27, 2026. The owner's latest target is stronger differences in layout an
 
 ## Remaining review
 
-- Aidan assesses the revised layouts and placeholder sections before reusable-reference approval or PR/merge.
+- Four revised layouts approved by Aidan; finished fifth addition prepared for review. No production merge performed.
 - Real client photography, genuine review/profile permissions and booking choices require client-specific decisions.
 - Real-phone acceptance testing remains a follow-up; no broad accessibility certification is claimed.
 
 No unresolved P0/P1/P2 implementation issue was found after the fixes and recaptures. The desired style is an intentional original adaptation of customer-task priorities, not a copy of the regional sources.
+
+## Fifth example / October 27, 2026
+
+- Added /templates/home-comfort as a separate photo-led option using the original large home photograph and green panel. Existing four demos retained. Homepage now has five cards and a fifth style choice.
+- Heating/Cooling selector verified; Cooling shows “A breath of fresh air.” Gallery keyboard activation, native dialog, Escape and focus return verified. Style handoff selects “Photo-led home services example” on the agency form without submitting an inquiry.
+- Phone/tablet captures in docs/qa/template-collection-v3. Content widths 375 and 753 px have matching scrollWidth; tablet header reflows into a clear second navigation row. Real-device testing remains open.
+- 92 tests pass; 14 HTML pages pass the static link/anchor/alt/favicon/name checks; release scan covers 66 explicit public files with zero findings.
+- No API/auth/Supabase/payment/security-header behavior changed. Four explicit public-file allowlist entries added for this example only. Original sitemap/robots unchanged.
+- Figma editable reference catalog and regional research boards inspected after text/auto-layout corrections and original image placement. No clipped text or overlapping card content remains. The old exploration is archived.
 
 final result: passed
