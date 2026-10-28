@@ -70,3 +70,11 @@ Before assets: assets/template-construction-home-before.webp and assets/template
 Each comparison supports photo pointer dragging and a visible native range control. Arrow keys adjust it; Home and End show full views. Screen readers receive before/after percentages, with end-state labels hidden when their image is no longer visible. Pointer capture handles dragging outside bounds, cancellation and other pointer IDs. Native vertical touch scrolling remains available. Without JS, the after image and before/after file links remain useful; controls are hidden. The after-image text link retains the existing native gallery dialog and Escape/focus-return behavior.
 
 94 automated tests, 14-page HTML check and clean 70-file release scan pass. Desktop and phone/tablet CSS evidence is under docs/qa/template-collection-v5. Physical touch-device testing remains a follow-up.
+
+## First showcase placement and one-time motion hint
+
+Aidan requested making construction one of the first examples customers see and adding a small initial slider motion. Hearth Build is now first in the homepage demo grid and first after the unsure option in the design-direction select. Other template structures are unchanged.
+
+Each comparison makes one 1.8-second, 15-percentage-point sweep around the center after at least 45% of its photo comes into view, then returns to 50/50. It never repeats during that page visit, stops immediately on range focus/input or photo interaction, and does not run for prefers-reduced-motion. Changes to reduced-motion preference also stop active motion. Native comparison controls remain available. Tests cover viewport-triggered start, interruption, center reset, one-time behavior and reduced-motion exclusion.
+
+Final automated count: 96 passing tests; 70 explicit public files; 14 HTML pages. Figma card contains comparison/approval notes; further Figma changes reached the Starter MCP call limit, so the latest ordering/motion notes are preserved in Drive and Git.

@@ -77,4 +77,10 @@ No unresolved P0/P1/P2 implementation issue was found after the fixes and recapt
 - Phone/tablet comparison gallery has matching client/scroll widths (375/375 and 753/753). Captures in docs/qa/template-collection-v5. Native range remains visible, labeled and keyboard accessible; touch hardware remains untested.
 - Generated sample disclosures and original after images preserved. Two before assets added explicitly to public allowlist; API/security behavior unchanged. No external dependency or real inquiry sent.
 
+## Showcase priority and motion hint
+
+- Construction now appears first in the demo grid and design-direction options after unsure. Browser DOM verified the first card is Construction & remodeling.
+- One-time 1.8-second slider sweep begins when the image is sufficiently visible, returns to center and is interrupted by interaction. Reduced-motion users get no automatic motion. Browser observed 55/45 during the sweep and 50/50 after completion; focused tests cover interruption, reduced motion and no repeat.
+- 96 automated tests pass, with unchanged clean 70-file build/release and 14-page HTML checks. No API/security change or production form submission.
+
 final result: passed

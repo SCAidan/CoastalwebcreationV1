@@ -32,7 +32,17 @@
       view.querySelector('.comparison-label-before').hidden = position < 5;
       view.querySelector('.comparison-label-after').hidden = position > 95;
     };
-    range.addEventListener('input', () => update(range.value));
+    let previewFrame = 0;
+    let previewObserver = null;
+    let interacted = false;
+    const stopPreview = () => {
+      interacted = true;
+      previewObserver?.disconnect();
+      if (previewFrame) cancelAnimationFrame(previewFrame);
+      previewFrame = 0;
+    };
+    range.addEventListener('input', () => { stopPreview(); update(range.value); });
+    range.addEventListener('focus', stopPreview);
     let pointer = null;
     const move = event => {
       const bounds = view.getBoundingClientRect();
@@ -40,6 +50,7 @@
     };
     view.addEventListener('pointerdown', event => {
       if (event.button !== 0 || pointer !== null) return;
+      stopPreview();
       pointer = event.pointerId;
       view.setPointerCapture(pointer);
       move(event);
@@ -52,5 +63,30 @@
     update(range.value);
     controls.hidden = false;
     view.dataset.ready = 'true';
+    const motion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
+    if (!motion?.matches && typeof IntersectionObserver === 'function' && typeof requestAnimationFrame === 'function') {
+      let previewStarted = false;
+      previewObserver = new IntersectionObserver(entries => {
+        if (interacted || previewStarted || !entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= 0.45)) return;
+        previewStarted = true;
+        previewObserver.disconnect();
+        let started = null;
+        const animate = now => {
+          if (interacted) return;
+          if (started === null) started = now;
+          const progress = Math.min(1, (now - started) / 1800);
+          update(progress === 1 ? 50 : 50 + 15 * Math.sin(progress * Math.PI * 2));
+          previewFrame = progress < 1 ? requestAnimationFrame(animate) : 0;
+        };
+        previewFrame = requestAnimationFrame(animate);
+      }, { threshold: 0.45 });
+      previewObserver.observe(view);
+      motion?.addEventListener('change', event => {
+        if (!event.matches) return;
+        const moving = previewFrame !== 0;
+        stopPreview();
+        if (moving) update(50);
+      });
+    }
   });
 })();
