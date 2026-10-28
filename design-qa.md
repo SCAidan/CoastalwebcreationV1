@@ -21,7 +21,7 @@ October 27, 2026. The owner's latest target is stronger differences in layout an
 
 - Fonts/typography: HVAC uses compact bold system sans-serif utility type. Barber uses a heavier uppercase sans-serif hierarchy and studio wordmark. Restaurant retains Georgia-led warm dining typography. Technology retains the selected charcoal/lime sans-serif. No external font requests, invented font raster text or cloned logos. Phone and desktop headings wrap without clipping; the barber phone headline intentionally spans three lines.
 - Spacing/layout: HVAC has header/intro/service desk/request panel, then job imagery; barber has sidebar/portfolio/service board; restaurant has food hero/menu/offset gallery/guest feedback; technology has service rail/system illustration/open service rows. The differing structures were checked in combined comparisons and actual lower sections.
-- Colors/tokens: navy/white/amber for HVAC, near-black/off-white/red for barber, existing warm dining palette for restaurant, selected charcoal/lime for technology. Focus remains visible. Selection uses aria-pressed plus a changed fill; native disclosure and dialog states remain semantic.
+- Color palette: navy/white/amber for HVAC, near-black/off-white/red for barber, existing warm dining palette for restaurant, selected charcoal/lime for technology. Focus remains visible. Selection uses aria-pressed plus a changed fill; native disclosure and dialog states remain semantic.
 - Image quality: six original generated individual photos exported to same-origin WebP, all labeled sample/generated/not client work. No reference-business photos, brands, portraits or review content copied. The technology gallery uses a labeled illustration, not a fabricated completed client project. Covers are actual browser renders.
 - Copy/content: explicit fictional labels remain. Google/Yelp areas say 'Demo placeholder · No reviews connected'. No fake names, customer quotes, ratings, counts or aggregate-rating schema. The HVAC request selector demonstrates a possible flow and clearly states that no service request is sent. No appointment booking or payment is represented as live.
 
@@ -82,5 +82,9 @@ No unresolved P0/P1/P2 implementation issue was found after the fixes and recapt
 - Construction now appears first in the demo grid and design-direction options after unsure. Browser DOM verified the first card is Construction & remodeling.
 - One-time 1.8-second slider sweep begins when the image is sufficiently visible, returns to center and is interrupted by interaction. Reduced-motion users get no automatic motion. Browser observed 55/45 during the sweep and 50/50 after completion; focused tests cover interruption, reduced motion and no repeat.
 - 96 automated tests pass, with unchanged clean 70-file build/release and 14-page HTML checks. No API/security change or production form submission.
+
+## PR verification false positive
+
+GitHub verification passed the 96 tests, dependency audit, independent history scan, release scan and Worker compilation. Gitleaks then interpreted the literal design-palette wording “tokens: navy/white/amber” in historical QA prose as a generic API key. The finding was inspected and confirmed to contain only color names. Renamed the current prose to “Color palette” and added an exact-secret allowlist for ^navy/white/amber$ in .gitleaks.toml so historical notes remain scannable. No rule, file, directory or history scan was disabled; no actual credential was added or exposed. Full Gitleaks history and public-artifact scans pass locally after this narrowly scoped correction.
 
 final result: passed
