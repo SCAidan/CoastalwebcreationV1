@@ -8,6 +8,7 @@ export const PUBLIC_FILES = Object.freeze([
   "assets/paypal-payment-qr.svg",
   "assets/cleaning-machine.webp",
   "assets/favicon.svg",
+  "assets/favicon.png",
   "assets/og-image.png",
   "assets/coastal-logo-blue.png",
   "assets/coastal-logo-web.webp",
