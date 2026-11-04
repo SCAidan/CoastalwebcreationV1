@@ -32,7 +32,7 @@
 @media(max-width:800px){.template-card:last-child:nth-child(odd){width:100%}}
 
 /* Featured client work and a native, keyboard-accessible project disclosure. */
-.projects{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.projects{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
 .project{min-width:0}
 .project-caption{align-items:flex-start;flex-direction:column;gap:6px}
 .project-caption h3{font-size:21px}
@@ -50,5 +50,3 @@
 @media(max-width:1000px) and (min-width:801px){.projects{grid-template-columns:repeat(2,minmax(0,1fr))}.projects>.project:last-child:nth-child(odd){grid-column:1 / -1;width:calc((100% - 28px) / 2);justify-self:center}}
 @media(max-width:800px){.projects{grid-template-columns:1fr;gap:28px}.project-caption{flex-direction:row;align-items:center;gap:12px}.project-caption h3{font-size:19px}.project-caption .text-link{min-height:44px}}
 @media(max-width:420px){.project-caption{flex-direction:column;align-items:flex-start;gap:2px}}
-
-.project-cover img[src*="rich-of-junk"]{object-position:center 70%}
