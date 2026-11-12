@@ -31,6 +31,7 @@
       const stage = metadata && stages.includes(metadata.workflow_stage) ? stages.indexOf(metadata.workflow_stage) : statuses.length ? Math.min(...statuses) : lead && ['Meeting', 'Proposal', 'Won'].includes(lead.stage) ? 1 : 0;
       const records = b.refs.map(x => x.record);
       return {...b, stage, contact: person?.contact || '', metadata,
+        deleted: b.refs.some(x => x.record.workflow_deleted === 'true'),
         inactive: metadata?.workflow_archived === 'true' || (lead && ['Lost'].includes(lead.stage) && !statuses.length),
         waiting: metadata?.workflow_waiting === 'true',
         next: metadata?.workflow_next || b.portalProjects.find(p => p.next_step)?.next_step || '',
@@ -45,7 +46,24 @@
   function safeWebsite(value) {
     try { const u = new URL(value); return u.protocol === 'https:' && !u.username && !u.password ? u.href : ''; } catch { return ''; }
   }
-  const model = {stages, key, project, safeWebsite};
+  function withDeleted(data, business, deleted, id) {
+    const next = JSON.parse(JSON.stringify(data));
+    const ref = business.refs.find(x => x.record.workflow_deleted !== undefined) ||
+      business.refs.find(x => ['leads','clients','projects'].includes(x.kind));
+    let record = ref && next[ref.kind].find(r => r.id === ref.record.id);
+    if (!record) {
+      record = {id, business: business.business, contact: business.contact || '', stage: 'New', source: 'Other'};
+      next.leads.push(record);
+    }
+    for (const source of business.refs.filter(x => x.record.workflow_deleted !== undefined)) {
+      const existing = next[source.kind].find(r => r.id === source.record.id);
+      if (existing) existing.workflow_deleted = String(deleted);
+    }
+    record.workflow_deleted = String(deleted);
+    if (!record.workflow_stage) record.workflow_stage = stages[business.stage];
+    return next;
+  }
+  const model = {stages, key, project, safeWebsite, withDeleted};
   root.CoastalWorkspace = model;
   if (typeof module === 'object' && module.exports) module.exports = model;
 })(globalThis);

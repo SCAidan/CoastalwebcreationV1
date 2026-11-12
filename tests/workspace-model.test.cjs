@@ -24,3 +24,15 @@ test('multiple projects keep an active build visible rather than implying all wo
 test('external website links reject script URLs, credentials, insecure and malformed addresses',()=>{
  for(const url of ['javascript:alert(1)','data:text/html,test','http://example.com','https://name:pass@example.com','not a url'])assert.equal(model.safeWebsite(url),'');assert.equal(model.safeWebsite('https://example.com/'),'https://example.com/');
 });
+
+test('client removal retains related calls, projects, payments, and portal access',()=>{
+ const data=blank();data.leads=[{id:'a',business:'Acme',stage:'New'}];data.calls=[{id:'call',business:'Acme',notes:'Keep this'}];data.projects=[{id:'p',business:'Acme',status:'Review'}];data.transactions=[{id:'tx',business:'Acme',amount:'100'}];const portal={accounts:[{id:'client',business_name:'Acme',active:true}],projects:[{id:'pp',client_id:'client',status:'Review'}]};
+ const before=JSON.stringify(data),b=model.project(data,portal)[0],next=model.withDeleted(data,b,true,'marker');assert.equal(JSON.stringify(data),before);assert.deepEqual(next.calls,data.calls);assert.deepEqual(next.projects,data.projects);assert.deepEqual(next.transactions,data.transactions);assert.equal(portal.accounts[0].active,true);assert.equal(model.project(next,portal)[0].deleted,true);assert.equal(model.project(next,portal).length,1);
+});
+test('portal-only client can be removed and restored without deleting the account',()=>{
+ const data=blank(),portal={accounts:[{id:'client',business_name:'Portal client',active:true}]};const next=model.withDeleted(data,model.project(data,portal)[0],true,'marker');assert.equal(next.leads[0].id,'marker');assert.equal(model.project(next,portal)[0].deleted,true);const restored=model.withDeleted(next,model.project(next,portal)[0],false,'unused');assert.equal(restored.leads.length,1);assert.equal(model.project(restored,portal)[0].deleted,false);assert.equal(portal.accounts[0].active,true);
+});
+
+test('restoring a grouped business clears all imported removal markers for that business only',()=>{
+ const data=blank();data.leads=[{id:'a',business:'Same',stage:'New',workflow_deleted:'true'},{id:'b',business:'Same',stage:'New',workflow_deleted:'true'},{id:'c',business:'Other',stage:'New',workflow_deleted:'true'}];const b=model.project(data).find(b=>b.business==='Same');const next=model.withDeleted(data,b,false,'unused');assert.equal(model.project(next).find(b=>b.business==='Same').deleted,false);assert.equal(model.project(next).find(b=>b.business==='Other').deleted,true);assert.equal(next.leads.length,3);
+});
