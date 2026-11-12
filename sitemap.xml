@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://coastalwebwork.com/</loc></url><url><loc>https://coastalwebwork.com/privacy</loc></url><url><loc>https://coastalwebwork.com/templates/restaurant</loc></url><url><loc>https://coastalwebwork.com/templates/professional</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://coastalwebwork.com/</loc></url>
+  <url><loc>https://coastalwebwork.com/services/web-design/</loc></url>
+  <url><loc>https://coastalwebwork.com/services/website-redesign/</loc></url>
+  <url><loc>https://coastalwebwork.com/services/website-care/</loc></url>
+  <url><loc>https://coastalwebwork.com/sitemap/</loc></url>
+  <url><loc>https://coastalwebwork.com/privacy</loc></url>
+</urlset>
