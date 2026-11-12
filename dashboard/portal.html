@@ -4,21 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>Clients & inquiries | Coastal Web Works</title>
+    <title>Coastal Desk — Client management | Coastal Web Works</title>
     <link rel="stylesheet" href="/assets/portal.css" />
     <script src="/dashboard/portal-admin.js" defer></script>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/brand.css">
 </head>
-  <body>
+  <body class="cww-portal">
     <a class="skip" href="#workspace">Skip to workspace</a>
     <div id="loading" class="loading" role="status">Checking owner access…</div>
     <div class="shell" id="app" hidden>
       <aside class="sidebar">
-        <a class="brand" href="/dashboard/"><span>≈</span> COASTAL / DESK</a>
+        <a class="brand cww-product-brand" href="/dashboard/" aria-label="Coastal Web Works home"><img class="cww-brand-logo" src="/assets/coastal-logo-web.webp" width="1000" height="385" alt="Coastal Web Works"></a><p class="cww-workspace-label">Coastal Desk</p>
         <nav aria-label="Owner navigation">
-          <a href="/dashboard/">Business dashboard</a
+          <a href="/dashboard/">Coastal Desk overview</a
           ><a class="active" href="/dashboard/portal"
-            >Clients & inquiries</a
+            >Client management</a
           ><a href="/">View website ↗</a><button id="logout">Sign out</button>
         </nav>
         <div class="sidebar-foot">
@@ -30,7 +31,7 @@
         <div class="topline">
           <div>
             <p class="eyebrow">A better client experience</p>
-            <h1>Keep things moving.</h1>
+            <h1>Client management</h1>
             <p class="muted">
               Manage website inquiries, client access, and the next step.
             </p>
@@ -40,7 +41,7 @@
         <p class="status" id="status" role="status"></p>
         <nav class="tabs" aria-label="Management sections">
           <button data-tab="inquiries" aria-pressed="true">Inquiries</button
-          ><button data-tab="accounts" aria-pressed="false">Clients</button
+          ><button data-tab="accounts" aria-pressed="false">Portal access</button
           ><button data-tab="projects" aria-pressed="false">Projects</button
           ><button data-tab="requests" aria-pressed="false">Requests</button>
         </nav>

@@ -24,6 +24,7 @@ export const PUBLIC_FILES = Object.freeze([
   "services/website-care/index.html",
   "sitemap/index.html",
   "assets/site.css",
+  "assets/brand.css",
   "assets/site.js",
   "assets/template-professional-preview.webp",
   "assets/template-restaurant-photo.webp",

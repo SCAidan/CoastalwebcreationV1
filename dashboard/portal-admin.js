@@ -79,7 +79,7 @@
         data.accounts
           .map(
             (a) =>
-              `<section class="panel"><div class="row"><h2>${esc(a.business_name)}</h2><span class="badge">${a.active ? "Active" : "Access paused"}</span></div><p>${esc(a.email)}</p><div class="actions">${a.active ? `<button data-action="setup_link" data-id="${a.id}">New password setup link</button>` : ""}<button data-action="toggle" data-id="${a.id}">${a.active ? "Pause access" : "Restore access"}</button></div></section>`,
+              `<section class="panel"><div class="row"><h2>${esc(a.business_name)}</h2><span class="badge">${a.active ? "Portal access active" : "Access paused"}</span></div><p>${esc(a.email)}</p><div class="actions"><a class="button" href="/dashboard/?business=${encodeURIComponent(a.business_name)}">Manage client</a><a class="button client-remove" href="/dashboard/?business=${encodeURIComponent(a.business_name)}&amp;remove=1">Delete from dashboard</a>${a.active ? `<button data-action="setup_link" data-id="${a.id}">New password setup link</button>` : ""}<button data-action="toggle" data-id="${a.id}">${a.active ? "Pause access" : "Restore access"}</button></div></section>`,
           )
           .join("");
     if (tab === "projects")
@@ -103,9 +103,11 @@
     $("#content").innerHTML = html;
     document
       .querySelectorAll("[data-tab]")
-      .forEach((b) =>
-        b.setAttribute("aria-pressed", String(b.dataset.tab === tab)),
-      );
+      .forEach((b) => {
+        b.setAttribute("aria-pressed", String(b.dataset.tab === tab));
+        const section=b.dataset.tab, labels={inquiries:"Inquiries",accounts:"Portal access",projects:"Projects",requests:"Requests"};
+        b.textContent=labels[section]+" ("+(data[section]?.length||0)+")";
+      });
   }
   async function load() {
     data = await api();
