@@ -36,3 +36,7 @@ test('portal-only client can be removed and restored without deleting the accoun
 test('restoring a grouped business clears all imported removal markers for that business only',()=>{
  const data=blank();data.leads=[{id:'a',business:'Same',stage:'New',workflow_deleted:'true'},{id:'b',business:'Same',stage:'New',workflow_deleted:'true'},{id:'c',business:'Other',stage:'New',workflow_deleted:'true'}];const b=model.project(data).find(b=>b.business==='Same');const next=model.withDeleted(data,b,false,'unused');assert.equal(model.project(next).find(b=>b.business==='Same').deleted,false);assert.equal(model.project(next).find(b=>b.business==='Other').deleted,true);assert.equal(next.leads.length,3);
 });
+
+test('delete and restore keep workflow details attached to the existing metadata record',()=>{
+ const data=blank();data.leads=[{id:'a',business:'Acme',stage:'Won'}];data.projects=[{id:'p',business:'Acme',status:'Review',workflow_stage:'Client review',workflow_waiting:'true',workflow_next:'Approve the photos'}];let b=model.project(data)[0];const removed=model.withDeleted(data,b,true,'unused');b=model.project(removed)[0];const restored=model.withDeleted(removed,b,false,'unused');b=model.project(restored)[0];assert.equal(b.waiting,true);assert.equal(b.next,'Approve the photos');assert.equal(b.stage,3);assert.equal(restored.leads[0].workflow_stage,undefined);
+});

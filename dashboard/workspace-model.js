@@ -49,6 +49,7 @@
   function withDeleted(data, business, deleted, id) {
     const next = JSON.parse(JSON.stringify(data));
     const ref = business.refs.find(x => x.record.workflow_deleted !== undefined) ||
+      business.refs.find(x => x.record === business.metadata) ||
       business.refs.find(x => ['leads','clients','projects'].includes(x.kind));
     let record = ref && next[ref.kind].find(r => r.id === ref.record.id);
     if (!record) {
