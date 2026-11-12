@@ -59,6 +59,7 @@
     try {
       await api("/api/session", { method: "DELETE" });
       connected = false;
+      document.dispatchEvent(new Event("coastal:signed-out"));
       window.coastalReplace({
         leads: [],
         calls: [],
@@ -86,8 +87,9 @@
       $("#auth-open").textContent = "Sign out";
       status("Cloud connected · saved");
       $("#storage-notice").textContent =
-        "Owner workspace · Changes save to your account. Customer accounts cannot access these records.";
+        "Your owner workspace · Changes save to your account.";
       document.body.classList.remove("private-hidden");
+      document.dispatchEvent(new Event("coastal:ready"));
     } catch (e) {
       $("#storage-notice").textContent = e.message;
       document.body.classList.remove("private-hidden");
